@@ -1,0 +1,174 @@
+// Force mat-chip background color using ::ng-deep for Angular Material specificity
+::ng-deep .requirement-card .mat-mdc-chip {
+  background-color: #E8DEF1 !important;
+}
+.requirement-card {
+    border-radius: 8px;
+    border: 1px solid #C4C6D0;
+    background-color: #F9F9FF;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+    // width: 100%;
+    min-width: 289px;
+    max-width: 100%;
+    flex: 1;
+    cursor: pointer;
+
+
+    // &:hover {
+    //     transform: translateY(-2px);
+    //     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    //     border-color: #C0C0C0;
+    // }
+
+    .card-content-column {
+        display: flex;
+        flex-direction: column;
+        padding: 16px;
+        // gap: 4px;
+    }
+
+    .card-item {
+        width: 100%;
+    }
+    
+  .custom-title {
+  font-size: 16px; /* or your desired size */
+  font-family: sans-serif;
+  font-weight: 550;
+  color: #1C1B1F;
+}
+    
+    .date-item {
+        margin-bottom: 4px;
+        
+        .date-display {
+            color: #8A8A8A;
+            font-size: 13px;
+        }
+    }
+    
+    .designation-item {
+        margin-top: 0;
+        
+        mat-chip-set {
+            display: flex;
+            
+            mat-chip {
+                display: inline-flex;
+                flex-direction: row;
+                align-items: center;
+                // gap: 4px; /* Increased gap between icon and text */
+                // width: 162px; /* Fixed width as requested */
+                height: 28px; /* Increased height as requested */
+                font-size: 13px;
+                // padding: 0 8px;
+                white-space: nowrap;
+                box-sizing: border-box;
+                border-radius: 20px; /* Added border radius as requested */
+            }
+            .mat-mdc-chip-highlighted {
+   
+    // --mdc-chip-elevated-container-color: var(--mdc-filled-text-field-error-focus-label-text-color);
+        --mdc-chip-elevated-container-color: var(#8341A326);
+            }
+            
+            /* Additional high-specificity selector to ensure border-radius is applied */
+            .rounded-chip.mat-mdc-chip {
+                border-radius: 20px !important;
+                --mdc-chip-container-shape: 20px !important;
+                // padding: 4px 8px 4px 4px;
+                
+                .designation-icon {
+                    font-size: 18px;
+                    height: 18px;
+                    width: 18px;
+                    margin: 0 2px 0 0;
+                    display: inline-flex;
+                    align-items: center;
+                    justify-content: center;
+                    vertical-align: middle;
+                    position: relative;
+                    top: 0; /* Centered vertically */
+                    color:#888888;
+                }
+                
+                .designation-text {
+                    display: inline-block;
+                    vertical-align: middle;
+                    // line-height: 28px; /* Match the chip height */
+                    position: relative;
+                    top: 0; /* Reset top position as we're using line height */
+                    color:#888888;
+                    font-weight: 500;
+                }
+            }
+        }
+        
+        .closed-date {
+            // margin-top: 8px;
+            // font-size: 12px;
+            color: #8A8A8A; // Same color as the date above
+            // font-weight: normal;
+            text-align: end;
+        }
+    }
+    
+    .profiles-item {
+        // margin-top: 8px;
+        
+        .profiles-row {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+        
+        .profiles-count {
+            font-size: 14px;
+            color:#1C1B1F; 
+            font-weight: 400;
+            display: flex;
+            align-items: center;
+            white-space: nowrap;
+            
+            &.has-profiles {
+                color: #8341A3;
+                font-weight: 500;
+            }
+            .profile-icon {
+                font-size: 16px;
+                height: 14px;
+                width: 13px;
+                margin-right: 4px;
+                color: #8341A3;
+                vertical-align: middle;
+                background: #E8DEF1;
+                border-radius: 50%;
+                width: 20px;
+                height: 20px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+        }
+        
+        .closed-date {
+            text-align: right;
+            color: #8A8A8A;
+        }
+    }
+
+    // New hover styles
+    &:hover {
+        box-shadow: 0 6px 24px rgba(130, 65, 163, 0.18);
+        border-color: #C4C6D0;
+        // transform: translateY(-2px) scale(1.02);
+        background: #C4C6D0; 
+    }
+}
+
+.mdc-evolution-chip--with-avatar.mdc-evolution-chip--with-primary-graphic .mdc-evolution-chip__graphic {
+    padding-left: 4px;
+}

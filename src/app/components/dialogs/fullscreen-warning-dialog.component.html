@@ -1,0 +1,10 @@
+<h2 mat-dialog-title>Fullscreen Required</h2>
+<mat-dialog-content>
+  <p>You have exited fullscreen mode during the interview.<br>
+  For security and integrity, the interview must be conducted in fullscreen.<br>
+  <span *ngIf="data && data.exitCount">This is warning {{data.exitCount}} of 3. If you exit fullscreen 4 times, the interview will end.</span>
+  </p>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-flat-button color="primary" class="fullscreen-reenter-btn" (click)="reenterFullscreen()">Re-enter Fullscreen</button>
+</mat-dialog-actions>

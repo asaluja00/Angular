@@ -1,0 +1,123 @@
+<!-- <div class="content-container"> -->
+<!-- <div class="content-wrapper"> -->
+<!-- Material Sidenav for requirement details (compatibility mode) -->
+<mat-sidenav-container class="drawer-container" autosize>
+  <mat-sidenav #drawer position="end" mode="over">
+    <!-- Drawer content goes here -->
+    <app-view-requirement-details></app-view-requirement-details>
+  </mat-sidenav>
+<!-- </mat-sidenav-container> -->
+
+<!-- Filter row -->
+<div class="filter-row" *ngIf="filterVisible">
+    <div class="filter-label">
+        <span class="filter-text">Filter:</span>
+        <button mat-icon-button class="add-filter-btn" (click)="toggleFilterOptions()">
+            <mat-icon>add</mat-icon>
+        </button>
+    </div>
+
+    <!-- Display active filters -->
+    <div class="active-filters" *ngIf="activeFilters.length > 0">
+        <div class="filter-chip" *ngFor="let filter of activeFilters">
+            <span class="filter-name">{{ getFilterDisplayName(filter.type) }}: {{ filter.value }}</span>
+            <button mat-icon-button class="remove-filter-btn" (click)="removeFilter(filter.type)">
+                <mat-icon>close</mat-icon>
+            </button>
+        </div>
+    </div>
+
+</div>
+
+<!-- Two-column layout -->
+<div class="two-column-layout">
+ 
+    <div class="main mat-elevation-z1">
+        <div class="main-header">
+        
+                <mat-checkbox *ngIf="selectionMode"
+                    [checked]="selectedCount === candidates.length && candidates.length > 0"
+                    [indeterminate]="selectedCount > 0 && selectedCount < candidates.length"
+                    (change)="selectAll($event.checked)"></mat-checkbox>
+                Candidate Details
+
+<div class="icon-container">
+<span class="filter-button" [matTooltip]="'Quick Reference'" (click)="onQuickReferenceClick()">
+    <mat-icon class="custom-small-icon">quick_reference_all</mat-icon>
+</span>
+    <span class="filter-button" (click)="toggleSelectionMode()" [matTooltip]="'Select'">
+        <mat-icon class="selection-icon custom-small-icon">{{selectionMode ? 'select_check_box' : 'content_copy'}}</mat-icon>
+    </span>
+    <span [matTooltip]="'Filter'" (click)="openFilterDialog()">
+        <mat-icon class="filter-button custom-small-icon">filter_alt</mat-icon>
+    </span>
+</div>
+
+                <!-- </div> -->
+       
+        </div>
+        
+      
+            <candidate-details [candidates]="candidates" [filteredCandidates]="filteredCandidates"
+                [activeFilters]="activeFilters" [selectionMode]="selectionMode" [jobRole]="jobRole"
+                (candidateSelected)="selectCandidate($event)"
+                (candidateSelectionToggled)="toggleCandidateSelection($event.candidate, $event.event)"
+                (sendEmailToCandidate)="sendEmailToSingle($event)"
+                (analyzeProfileToCandidate)="analyzeProfileToSingle($event)"
+                (uploadProfileToCandidate)="onReuploadResume($event)">
+
+            </candidate-details>
+  
+    </div>
+
+    <!-- Vertical divider -->
+    <div class="vertical-divider"></div>
+
+    <!-- Right column: View complete details component -->
+    <div class="right-column">
+        <complete-profile-details *ngIf="selectedCandidate && !selectionMode"
+            [candidate]="selectedCandidate"></complete-profile-details>
+
+        <div class="selected-state" *ngIf="selectionMode && selectedCount > 0">
+            <div class="selected-icon">
+                <mat-icon>Task</mat-icon>
+            </div>
+            <p class="selected-count mat-title-medium">{{ selectedCount }} items selected</p>
+
+            <div class="action-buttons-vertical">
+                <div class="action-button mat-body-small" (click)="sendEmailToMultiple()">
+                    <mat-icon>forward_to_inbox</mat-icon>
+                    Send E-mail
+                </div>
+
+                <div class="action-button mat-body-small" (click)="analyzeProfiles()">
+                    <mat-icon>vital_signs</mat-icon>
+                    Analyze Profiles
+                </div>
+
+                <!-- <div class="action-button  mat-body-small delete" (click)="deleteProfiles()">
+                    <mat-icon>delete</mat-icon>
+                    Delete Profiles
+                </div> -->
+
+                <div class="action-button  mat-body-small cancel" (click)="toggleSelectionMode()">
+                    <mat-icon>cancel</mat-icon>
+                    Cancel
+                </div>
+            </div>
+        </div>
+
+        <div class="empty-state"
+            *ngIf="(!selectedCandidate && !selectionMode) || (selectionMode && selectedCount === 0)">
+            <div class="empty-icon">
+                <mat-icon>document_search</mat-icon>
+            </div>
+            <p class="empty-text">Select an Item to view details</p>
+            <p class="empty-subtext">Nothing is selected</p>
+        </div>
+
+    </div>
+</div>
+
+<!-- </div> -->
+<!-- </div> -->

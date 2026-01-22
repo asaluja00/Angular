@@ -1,0 +1,11 @@
+<div class="breadcrumbs-container">
+  @if (fragments && fragments.length > 0) {
+    <div class="mat-title-small muted breadcrumb" routerLink="/">{{ fragments[0] }}</div>
+    @for (fragment of fragments.slice(1); track $index) {
+      <span class="muted separator"> / </span>
+      <div class="mat-title-small" [ngClass]="{ 'active-fragment': $index === fragments.length - 2, 'muted': $index !== fragments.length - 2 }">
+        {{ fragment }}
+      </div>
+    }
+  }
+</div>

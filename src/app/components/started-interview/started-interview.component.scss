@@ -1,0 +1,705 @@
+// Interview Session Container
+.interview-session-container {
+  display: flex;
+  flex-direction: column;
+  // background-color: #121212;  
+  // background-color: #F5F5F5;
+    background-color:white;
+  color: white;
+  // min-height: 100vh;
+ padding:22px;
+//  margin-top: 20px;
+}
+.vertical-divider {
+  display: inline-block;
+  width: 2px;
+  height: 40px;
+  background: #fff;
+  // margin: 0 16px;
+  vertical-align: middle;
+}
+
+.session-title {
+  // font-size: 24px;
+  font-weight: 500;
+  // margin: 0 0 32px 24px;
+}
+
+// Interview Status Overlay
+.interview-status-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  .status-message {
+    background-color: #222;
+    border-radius: 12px;
+    padding: 32px;
+    max-width: 500px;
+    text-align: center;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    
+    mat-icon {
+      font-size: 48px;
+      height: 48px;
+      width: 48px;
+      margin-bottom: 16px;
+      color: #F44336;
+    }
+    
+    h2 {
+      font-size: 28px;
+      margin: 0 0 16px;
+      color: white;
+    }
+    
+    p {
+      font-size: 16px;
+      line-height: 1.5;
+      color: #ccc;
+      margin-bottom: 24px;
+    }
+    
+    .required-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 24px;
+      
+      .action-item {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        background-color: rgba(255, 255, 255, 0.1);
+        padding: 12px 16px;
+        border-radius: 8px;
+        
+        mat-icon {
+          font-size: 20px;
+          height: 20px;
+          width: 20px;
+          margin-right: 12px;
+          margin-bottom: 0;
+          color: #F44336;
+        }
+        
+        span {
+          font-size: 16px;
+          margin-right: auto;
+        }
+        
+        .action-button {
+          background-color: #AF5CD8;
+          color: white;
+          border: none;
+          border-radius: 4px;
+          padding: 8px 12px;
+          display: flex;
+          align-items: center;
+          cursor: pointer;
+          margin-left: auto;
+          transition: background-color 0.2s;
+          
+          &:hover {
+            background-color: #9039c1;
+          }
+          
+          mat-icon {
+            color: white;
+            font-size: 18px;
+            height: 18px;
+            width: 18px;
+            margin-right: 8px;
+            margin-bottom: 0;
+          }
+        }
+        
+        &.completed {
+          background-color: rgba(76, 175, 80, 0.2);
+          
+          mat-icon {
+            color: #4CAF50;
+          }
+        }
+      }
+    }
+    
+    .controls-instruction {
+      margin-top: 24px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 16px;
+      
+      p {
+        margin-bottom: 12px;
+        font-size: 14px;
+        color: #aaa;
+        
+        &.note {
+          background-color: rgba(255, 193, 7, 0.1);
+          border-left: 3px solid #FFC107;
+          padding: 8px 12px;
+          border-radius: 4px;
+          font-size: 13px;
+          color: #FFC107;
+          margin-bottom: 20px;
+        }
+      }
+      
+      .controls-demo {
+        display: flex;
+        gap: 12px;
+        justify-content: center;
+        
+        .demo-button {
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          border: none;
+          background-color: #333;
+          color: white;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          position: relative;
+          
+          &.active {
+            background-color: #AF5CD8;
+          }
+          
+          &:after {
+            content: '';
+            position: absolute;
+            top: -4px;
+            left: -4px;
+            right: -4px;
+            bottom: -4px;
+            border: 2px dashed rgba(255, 255, 255, 0.4);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+          }
+          
+          mat-icon {
+            font-size: 20px;
+            height: 20px;
+            width: 20px;
+            margin: 0;
+          }
+        }
+      }
+    }
+  }
+}
+
+// Interview Panels Layout
+.interview-panels {
+  display: flex;
+  gap: 24px;
+  margin-bottom: 24px;
+  
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
+}
+
+// Candidate Panel (Left)
+.candidate-panel {
+  flex: 3;
+  position: relative;
+  height: 460px;
+  
+  .video-container {
+    width: 100%;
+    height: 100%;
+    border-radius: 12px;
+    overflow: hidden;
+    background-color: #2a2a2a;
+    position: relative;
+
+    &.speaker-active {
+  border: 4px solid #4CAF50;
+  box-shadow: 0 0 16px 2px #4CAF50;
+      z-index: 3;
+    }
+    
+    &.video-off {
+      background-color: #1a1a1a;
+      
+      .candidate-video {
+        opacity: 0.5;
+        filter: grayscale(100%);
+      }
+      
+      &:after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.6);
+      }
+    }
+    
+    .candidate-video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: opacity 0.3s ease, filter 0.3s ease;
+      background-color: #000; /* Add background color to make video visible */
+      display: block; /* Ensure display is block */
+      z-index: 1; /* Make sure video is visible above other elements */
+      
+      &::-webkit-media-controls {
+        display: none !important;
+      }
+    }
+    
+    .name-badge {
+      position: absolute;
+      bottom: 16px;
+      left: 16px;
+      background-color: rgba(0, 0, 0, 0.6);
+      padding: 8px 16px;
+      border-radius: 4px;
+      font-size: 14px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-width: 150px;
+      z-index: 2;
+    }
+  }
+}
+
+// Status indicators
+.status-indicators {
+  display: flex;
+  margin-left: 12px;
+  
+  .status-icon {
+    font-size: 16px;
+    height: 16px;
+    width: 16px;
+    margin-left: 4px;
+    
+    &.muted {
+      color: #ff4d4d;
+    }
+    
+    &.video-off {
+      color: #ff4d4d;
+    }
+  }
+}
+
+// AI Interviewer Panel (Right)
+.ai-interviewer-panel {
+  flex: 1;
+  min-width: 300px;
+  height: 460px;
+  background-color: #e5e5e5;
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+
+  &.speaker-active {
+    border: 4px solid #4CAF50;
+    box-shadow: 0 0 16px 2px #4CAF50;
+    z-index: 3;
+  }
+  
+  &:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.1);
+    pointer-events: none;
+  }
+  
+  .ai-avatar-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    
+    .ai-avatar {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+    }
+    
+    .ai-info {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 16px;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+      
+      .ai-name {
+        color: white;
+        font-weight: 500;
+        margin-bottom: 8px;
+      }
+    }
+  }
+}
+
+// Audio wave animation
+.audio-wave {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  width: 180px;
+  
+  &.hidden {
+    display: none;
+  }
+  
+  .bar {
+    background: linear-gradient(to top, #AF5CD8, #D53EDF);
+    width: 5px;
+    border-radius: 8px;
+    margin: 0 3px;
+    height: 20px;
+    animation: sound-wave 0.8s infinite ease-in-out;
+    
+    &.bar1 { animation-delay: 0s; }
+    &.bar2 { animation-delay: 0.1s; }
+    &.bar3 { animation-delay: 0.2s; }
+    &.bar4 { animation-delay: 0.3s; }
+    &.bar5 { animation-delay: 0.4s; }
+    &.bar6 { animation-delay: 0.5s; }
+    &.bar7 { animation-delay: 0.6s; }
+    &.bar8 { animation-delay: 0.7s; }
+  }
+}
+
+@keyframes sound-wave {
+  0% { transform: scaleY(0.3); }
+  50% { transform: scaleY(1); }
+  100% { transform: scaleY(0.3); }
+}
+
+@keyframes pulse {
+  0% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(1.1); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+// Interview Timer
+.interview-timer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 16px 0;
+  color: white;
+  
+  mat-icon {
+    margin-right: 8px;
+    color: #AF5CD8;
+  }
+  
+  span {
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+  }
+}
+
+// Recording indicator
+.recording-indicator {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background-color: rgba(208, 0, 0, 0.9);
+  padding: 6px 6px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  color: white;
+  // font-weight: 700;
+  // animation: pulse 1.5s infinite;
+  z-index: 1000;  // Higher z-index to ensure visibility
+  // box-shadow: 0 0 20px rgba(255, 0, 0, 0.8); // Stronger glow effect
+  border: 2px solid #ff5252; // Add border for more visibility
+  
+  &.active {
+    display: flex !important; // Force display when active class is present
+  }
+  
+  // .recording-dot {
+  //   height: 12px;
+  //   width: 12px;
+  //   background-color: #ff0000;
+  //   border-radius: 50%;
+  //   margin-right: 10px;
+  //   animation: blink 1s infinite;
+  //   box-shadow: 0 0 10px #ff0000; // Add glow effect to the dot
+  // }
+  
+  mat-icon {
+    color: #ff0000;
+    margin-right: 8px;
+    font-size: 20px;
+    height: 20px;
+    width: 20px;
+  }
+  
+  span {
+    font-size: 13px;
+    letter-spacing: 0.5px;
+    text-shadow: 0 0 4px rgba(255, 255, 255, 0.7); // Add text shadow for better visibility
+  }
+}
+
+@keyframes blink {
+  0% { opacity: 1; transform: scale(1.2); }
+  50% { opacity: 0.5; transform: scale(0.8); }
+  100% { opacity: 1; transform: scale(1.2); }
+}
+
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.8); }
+  70% { box-shadow: 0 0 0 15px rgba(255, 0, 0, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0); }
+}
+
+
+// Interview Controls
+.interview-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+  margin-top: 24px;
+  
+  .control-button {
+    border: none;
+    background-color: #333;
+    color: white;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    
+    &:hover {
+      background-color: #444;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    
+    &:active {
+      transform: translateY(0);
+    }
+    
+    mat-icon {
+      font-size: 24px;
+      height: 24px;
+      width: 24px;
+    }
+    
+    // Active state for toggle buttons
+    &.active {
+      background-color: #AF5CD8;
+      
+      &:hover {
+        background-color: #9039c1;
+      }
+    }
+    
+    // Recording button styling
+    &.recording-button {
+      background-color: #000;
+      color: #fff;
+      border: 2px solid #d32f2f;
+      
+      &.recording {
+        background-color: #d32f2f;
+        color: #fff;
+        border: 2px solid #fff;
+      }
+      mat-icon {
+        color: #d32f2f;
+      }
+      &.recording mat-icon {
+        color: #fff;
+      }
+      &:hover {
+        background-color: #b71c1c;
+      }
+    }
+
+    // End button styling
+    &.end-button {
+      background-color: #F44336;
+      width: auto;
+      padding: 0 24px;
+      border-radius: 24px;
+      
+      &:hover {
+        background-color: #D32F2F;
+      }
+    }
+    
+    // More button styling
+    &.more-button {
+      background-color: #555;
+      
+      &:hover {
+        background-color: #666;
+      }
+    }
+  }
+}
+
+// Make sure dropdowns appear correctly on dark background
+::ng-deep {
+  .mat-mdc-menu-panel {
+    background-color: #333;
+    border-radius: 8px;
+    min-width: 180px !important;
+
+    .mat-mdc-menu-item {
+      color: white;
+
+      &:hover {
+        background-color: #444;
+      }
+
+      .mat-icon {
+        color: #AF5CD8;
+      }
+
+      // Make Start/Stop Recording black
+      span {
+        &.recording-label {
+          color: #000 !important;
+        }
+      }
+    }
+  }
+}
+
+// Interview Ended Overlay
+.interview-ended-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.85);
+  z-index: 20; // Higher than other overlays
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  .ended-message {
+    background-color: #2d2d2d;
+    border-radius: 12px;
+    padding: 40px;
+    max-width: 550px;
+    text-align: center;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+    
+    mat-icon {
+      font-size: 64px;
+      height: 64px;
+      width: 64px;
+      margin-bottom: 24px;
+      color: #4CAF50; // Green success icon
+    }
+    
+    h2 {
+      font-size: 32px;
+      margin: 0 0 20px;
+      color: white;
+    }
+    
+    p {
+      font-size: 18px;
+      line-height: 1.6;
+      color: #ddd;
+      margin-bottom: 8px;
+    }
+    
+    .action-buttons {
+      margin-top: 32px;
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      
+      .action-button {
+        padding: 12px 24px;
+        border-radius: 8px;
+        border: none;
+        font-size: 16px;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        
+        &.primary {
+          background-color: #4CAF50;
+          color: white;
+          
+          &:hover {
+            background-color: #3d8b40;
+          }
+        }
+      }
+    }
+  }
+}
+// Top header bar styles
+.ai-interview-header {
+  width: 100%;
+  height: 64px;
+  background: linear-gradient(90deg, #8341A3 0%, #8341A3 100%);
+  display: flex;
+  align-items: center;
+  padding: 0 8px; // Decreased left gap
+  box-sizing: border-box;
+  .logo-section {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    .logo-img {
+      height: 40px;
+      width: auto;
+      margin-right: 12px;
+    }
+    .header-title {
+      color: #fff;
+      // font-size: 1.5rem;
+      font-weight: 400;
+      letter-spacing: 2px;
+    }
+  }
+}
+

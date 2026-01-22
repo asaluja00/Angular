@@ -1,0 +1,23 @@
+.page-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+mat-icon {
+    width: auto;
+    height: auto;
+    font-size: 16rem;
+    color: rgba(0, 0, 0, 0.3);
+}
+
+.title {
+    margin-bottom: 0.5rem;
+    color: rgba(0, 0, 0, 0.3);
+}
+
+.sub-title {
+    color: rgba(0, 0, 0, 0.3);
+}

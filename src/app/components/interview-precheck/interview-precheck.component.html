@@ -1,0 +1,56 @@
+
+<div class="ai-interview-header">
+  <img src="assets/images/new-logo.png" style="background-color: transparent;" alt="logo"
+				width="215">
+ <div class="profile-menu">
+         <button class="header-btn"  (click)="toggleDropdown()">
+            <p  class="material-icons"> {{candidateInitials}} </p> 
+          </button>
+  <div class="dropdown" [class.show]="isDropdownOpen">
+      <p class="mat-title-medium">{{candidateName}}</p>
+      <hr />
+      <!-- <button class="logout-btn">Log out</button> -->
+    </div>
+</div>
+</div>
+
+<div class="precheck-container">
+  <mat-card class="precheck-card">
+    <mat-card-content>
+      <p class="header-styles mat-title-large">Initiating Interview Session</p>
+      <p class="description mat-body-medium">Welcome! We appreciate your interest in this opportunity. The interview process is now ready to begin, kindly ensure all technical requirements are met before proceeding.</p>
+        <div class="details-container">
+          <div class="detail-row">
+            <mat-icon>account_circle</mat-icon>
+            <span class="mat-body-medium" style="margin-top:6px ;">Candidate Name: {{candidateName}}</span>
+          </div>
+          <div class="detail-row">
+            <mat-icon>work</mat-icon>
+            <span class="mat-body-medium">Job Role: {{jobRole}}</span>
+          </div>
+          <div class="detail-row">
+            <mat-icon>schedule</mat-icon>
+            <span class="mat-body-medium">Scheduled Time: {{scheduledTime | date:'EEEE, MMMM d\'th\' yyyy \'at\' h:mm a (\'IST\')'}} </span>
+          </div>
+        </div>
+
+      <div class="button-container">
+        <button mat-stroked-button (click)="onCancel()">Cancel</button>
+  <button mat-flat-button color="primary" (click)="onBegin()" [disabled]="!isInterviewTime()">Let's Begin</button>
+      </div>
+
+      <div class="requirements-container">
+        <p class="note-heading mat-subtitle-2">Note:</p>
+        <ul class="mat-body-medium">
+          <li>Stable Internet Connection speed for video calls.</li>
+          <li>Laptop or desktop with working camera, microphone, and updated OS.</li>
+          <li>Headphones and webcam with clear resolution and sound quality.</li>
+          <li>Minimal background noise, good lighting, and clean camera framing.</li>
+        </ul>
+      </div>
+    </mat-card-content>
+  </mat-card>
+  
+  <div class="footer mat-label-large">&copy; 2025 Tech Mahindra Limited</div>
+</div>
+

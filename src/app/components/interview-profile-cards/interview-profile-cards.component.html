@@ -1,0 +1,163 @@
+<div class="ai-interview-header">
+  <img src="assets/images/new-logo.png" style="background-color: transparent;" alt="logo"
+				width="215">
+ <div class="profile-menu">
+         <button class="header-btn"  (click)="toggleDropdown()">
+            <p  class="material-icons">{{ candidateInitials }}</p> 
+          </button>
+  <div class="dropdown" [class.show]="isDropdownOpen">
+      <p class="mat-title-medium">{{name}}</p>
+      <hr />
+      <!-- <button class="logout-btn">Log out</button> -->
+    </div>
+</div>
+</div>
+
+<div class="profile-cards-container">
+  <mat-card class="profile-card candidate-info">
+    <div class="candidate-initials">{{ candidateInitials }}</div>
+    <div class="candidate-name mat-title-medium" matTooltip="{{name}}">{{name}}</div>
+    <div class="candidate-role mat-title-small">{{ jobRole }}</div>
+    <div class="interview-status mat-title-small">
+      <mat-icon color="primary">check</mat-icon>
+      Interview Requested
+    </div>
+  </mat-card>
+  <mat-card class="profile-card job-description">
+    <p class="mat-title-medium">Job Description</p>
+    <div class="job-desc-content">
+      <p><span class="mat-title-small">Job Role:</span> <span class="desc-points">{{ jobRole }}</span></p>
+      <div>
+        <span class="mat-title-small">Job Description:</span>
+        <ul class="desc-points">
+          <ng-container *ngFor="let point of jobDesc.split('•')">
+            <li *ngIf="point.trim()">{{ point.trim() }}</li>
+          </ng-container>
+        </ul>
+      </div>
+
+    <div class="roles-responsibilities-section">
+      <p class="mat-title-small">Roles and Responsibilities</p>
+      <div class="mat-body-medium">
+        <ul class="desc-points">
+          <ng-container *ngFor="let role of rolesAndResponsibilities?.split('•')">
+            <li *ngIf="role.trim()">{{ role.trim() }}</li>
+          </ng-container>
+        </ul>
+      </div>
+    </div>
+
+      <div>
+        <span class="mat-title-small">Mandatory Skills:</span>
+        <ul class="desc-points">
+          <ng-container *ngFor="let skill of mandSkills.split('•')">
+            <li *ngIf="skill.trim()">{{ skill.trim() }}</li>
+          </ng-container>
+        </ul>
+      </div>
+      <div>
+        <span class="mat-title-small">Optional Skills:</span>
+        <ul class="desc-points">
+          <ng-container *ngFor="let skill of optSkills.split('•')">
+            <li *ngIf="skill.trim()">{{ skill.trim() }}</li>
+          </ng-container>
+        </ul>
+      </div>
+    </div>
+  </mat-card>
+  <mat-card class="profile-card schedule-interview">
+    <p class="mat-title-medium">Schedule Interview</p>
+    <form #interviewForm="ngForm" (ngSubmit)="onSubmit(interviewForm)" class="schedule-form">
+      <mat-form-field appearance="outline" class="date-field">
+        <mat-label>Date</mat-label>
+        <input matInput [matDatepicker]="picker" [(ngModel)]="interviewData.date" [min]="minDate" name="date" required placeholder="DD/MM/YYYY">
+        <mat-datepicker-toggle matIconSuffix [for]="picker">
+          <mat-icon matDatepickerToggleIcon>calendar_today</mat-icon>
+        </mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="time-field">
+        <mat-label>Time</mat-label>
+        <input matInput type="time" [(ngModel)]="interviewData.time" name="time" required #timeInput placeholder="HH:MM"
+          (click)="timeInput.showPicker()">
+        <button type="button" mat-icon-button matSuffix (click)="timeInput.showPicker()" tabindex="-1">
+          <mat-icon>schedule</mat-icon>
+        </button>
+      </mat-form-field>
+      <div class="photo-upload">
+        <p class="mat-title-small" style="margin-bottom: 8px;">Upload Photograph</p>
+        <div class="upload-area">
+          <div class="file-upload-row">
+            <div class="choose-file" (click)="photoInput.click()">
+              <ng-container *ngIf="!selectedFileName">
+                <mat-icon>cloud_upload</mat-icon>
+                <span>Choose File</span>
+                <span class="file-format mat-body-medium">File Format: JPG (5MB max)</span>
+              </ng-container>
+            </div>
+            <ng-container *ngIf="selectedFileName">
+              <div class="file-container">
+                <div class="file-info">
+                  <img *ngIf="imagePreview" [src]="imagePreview" class="image-preview" alt="Preview">
+                  <div class="file-details">
+                    <mat-icon>person</mat-icon>
+                    <span>{{ selectedFileName }}</span>
+                  </div>
+                </div>
+                <mat-icon class="delete-icon" (click)="$event.stopPropagation(); removeFile()">delete</mat-icon>
+              </div>
+            </ng-container>
+               <input hidden id="photoInput" type="file" accept="image/*" #photoInput (change)="onFileSelected($event)">
+          </div>
+        </div>
+      </div>
+      <mat-checkbox color="primary" class="terms-checkbox" [(ngModel)]="interviewData.termsAccepted" name="termsAccepted" required>
+        I have read and accepted the 
+        <!-- <a href="#" class="terms-link">Terms and Conditions</a> and
+        <a href="#" class="terms-link">Privacy Policy</a> -->
+
+         <!-- 🔴 CHANGED -->
+       <a href="#" class="terms-link" (click)="openTermsDialog($event)">
+         Terms and Conditions
+        </a>
+           and
+          <!-- 🔴 CHANGED -->
+       <a href="#" class="terms-link" (click)="openPrivacyDialog($event)">
+        Privacy Policy
+        </a>
+
+      </mat-checkbox>
+      <div class="schedule-actions">
+        <button type="button" mat-stroked-button (click)="resetForm(interviewForm)">Cancel</button>
+        <button type="submit" mat-flat-button color="primary" 
+          [disabled]="!interviewForm.valid || !interviewData.photo || !interviewData.termsAccepted">
+          Submit
+        </button>
+      </div>
+    </form>
+  </mat-card>
+</div>
+
+
+<!-- 🔴 CHANGED: Dialog Template (ADD AT BOTTOM OF FILE) -->
+<ng-template #policyDialog>
+  <h2 mat-dialog-title>{{ policyTitle }}</h2>
+ 
+  <mat-dialog-content style="max-height: 300px; overflow-y: auto;">
+    <!-- <p class="mat-body-medium" style="text-align: justify;">
+      {{ policyContent }}
+    </p> -->
+    <div
+  class="mat-body-medium policy-content"
+  style="text-align: justify;"
+  [innerHTML]="policyContent">
+ 
+</div>
+  </mat-dialog-content>
+ 
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Close</button>
+  </mat-dialog-actions>
+</ng-template>
+
+<div class="footer mat-label-large">&copy; 2025 Tech Mahindra Limited</div>

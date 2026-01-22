@@ -1,0 +1,238 @@
+<div class="content-container">
+    <form #requirementForm="ngForm" (ngSubmit)="onSubmit(requirementForm)" [ngClass]="{'greyed-out': isReadOnly || isSubmitting}">
+        <div class="requirement-form-section">
+            <div class="requirement-header">
+                <p class="requirement-section-title">Requirement details</p>
+                <!-- <button mat-flat-button class="mat-body save-proceed-btn" type="submit" [disabled]="!requirementForm.valid">Save and Proceed</button> -->
+        <button mat-flat-button class="mat-body" type="submit"
+            [disabled]="!requirementForm.valid || !isFormEditable || isSubmitting || (originalFormData && !isFormChanged) || hasInvalidRequiredFields">
+                    <span *ngIf="!isSubmitting">Save and Proceed</span>
+                    <span *ngIf="isSubmitting" class="loader-container">
+                        <mat-icon class="spinner">sync</mat-icon>
+                        Processing...
+                    </span>
+                </button>
+            </div>
+            <div class="form-fields">
+                <div class="form-field-container" style="flex: 1;">
+                    <mat-form-field appearance="outline" class="form-field title-field requirement-title-field">
+                        <mat-label class="requirement-title-label mat-body">Requirement title</mat-label>
+                        <input matInput name="title" [(ngModel)]="requirementData.title" (input)="onFormChange()" class="mat-body" required [readonly]="!isFormEditable || isSubmitting">
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div class="section-divider"></div>
+
+            <div class="job-header-row">
+                <p class="requirement-section-title">Job Details</p>
+                <div style="display: flex; gap: 12px;">
+                    <a href="assets/images/Sample JD Template 6.xlsx" download
+                        class="download-template-btn mat-body-small"
+                        style="text-decoration: none; display: flex; align-items: center; gap: 4px;"
+                        [class.disabled-link]="isSubmitting">
+                        <mat-icon>file_download</mat-icon>
+                        Download Template
+                    </a>
+                    <button type="button" class="upload-template-btn mat-body-small" (click)="uploadTemplate()" [disabled]="!isFormEditable || isSubmitting">
+                        <mat-icon>file_upload</mat-icon>
+                        Upload Template
+                    </button>
+                </div>
+            </div>
+            <div style="height: 16px;"></div>
+
+            <div class="job-details-fields">
+                <mat-form-field appearance="outline" class="form-field job-role-field">
+                    <mat-label class="mat-body">Job Role</mat-label>
+                    <input matInput name="jobRole" [(ngModel)]="requirementData.jobRole" (input)="onFormChange()" class="mat-body" required [readonly]="!isFormEditable || isSubmitting">
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="form-field percentage-field">
+                    <mat-label class="mat-body">Resume Shortlist Percentage</mat-label>
+                    <div class="percentage-input-container">
+                        <input matInput type="number" min="1" max="100" name="resumeShortlistPercentage"
+                            class="mat-body" [(ngModel)]="requirementData.resumeShortlistPercentage" (input)="onFormChange()" required [disabled]="!isFormEditable || isSubmitting">
+                        <span class="percentage-symbol mat-body-small">%</span>
+                    </div>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="form-field percentage-field">
+                    <mat-label class="mat-body">Interview Pass Percentage</mat-label>
+                    <div class="percentage-input-container">
+                        <input matInput type="number" min="1" max="100" name="interviewPassPercentage" class="mat-body"
+                            [(ngModel)]="requirementData.interviewPassPercentage" (input)="onFormChange()" required [disabled]="!isFormEditable || isSubmitting">
+                        <span class="percentage-symbol mat-body-small">%</span>
+                    </div>
+                </mat-form-field>
+            </div>
+
+            <!-- <div style="height: 16px;"></div> -->
+
+            <div class="job-description-fields">
+                <mat-form-field appearance="outline" class="form-field description-box">
+                    <mat-label class="mat-body">Job Description</mat-label>
+                    <textarea matInput rows="3" name="jobDescription" class="mat-body"
+                        [(ngModel)]="requirementData.jobDescription" (input)="onFormChange()" required [readonly]="!isFormEditable || isSubmitting"></textarea>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="form-field description-box">
+                    <mat-label class="mat-body">Roles and Responsibilities</mat-label>
+                    <textarea matInput rows="3" name="rolesAndResponsibilities" class="mat-body"
+                        [(ngModel)]="requirementData.rolesAndResponsibilities" (input)="onFormChange()" required [readonly]="!isFormEditable || isSubmitting"></textarea>
+                </mat-form-field>
+            </div>
+
+            <div class="section-divider"></div>
+
+            <div class="experience-header-row">
+                <div class="experience-header-section">
+                    <p class="requirement-section-title">Work experience</p>
+                    <p class="experience-instruction">Minimum number of years in relevant roles essential for
+                        the position
+                    </p>
+                </div>
+
+                <div class="work-experience-fields">
+                    <mat-form-field appearance="outline" class="form-field skill-field">
+                        <mat-label class="mat-body">Experience in years</mat-label>
+                        <input matInput type="number" min="0" step="0.1" name="experience" class="mat-body" required
+                            [(ngModel)]="requirementData.experience" (input)="onFormChange()" [disabled]="!isFormEditable || isSubmitting">
+                    </mat-form-field>
+                    <div class="form-field weightage-field" style="display: flex; flex-direction: column;">
+                        <mat-form-field appearance="outline">
+                            <mat-label class="mat-body">Weightage</mat-label>
+                            <input matInput type="number" min="1" max="10" name="experienceWeightage" class="mat-body"
+                                [(ngModel)]="requirementData.experienceWeightage" required [disabled]="!isFormEditable || isSubmitting || !requirementData.experience">
+                        </mat-form-field>
+                        <span class="field-description mat-caption mat-body-small">Weightage range should be between 1
+                            to 10</span>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="section-divider"></div>
+
+            <div class="experience-header-row">
+                <div class="experience-header-section">
+                    <p class="requirement-section-title">Mandatory Skills</p>
+                    <p class="experience-instruction">Core qualification required for effective performance
+                        in the role</p>
+                </div>
+
+                <div class="experience-fields">
+                    <mat-form-field appearance="outline" class="form-field skill-field">
+                        <mat-label class="mat-body">List all Mandatory skills separated by comma (,)</mat-label>
+                        <textarea matInput rows="3" name="mandatorySkills" class="mat-body"
+                            [(ngModel)]="requirementData.mandatorySkills" (input)="onFormChange()" required [readonly]="!isFormEditable || isSubmitting"></textarea>
+                    </mat-form-field>
+                    <div class="form-field weightage-field" style="display: flex; flex-direction: column;">
+                        <mat-form-field appearance="outline">
+                            <mat-label class="mat-body">Weightage</mat-label>
+                            <input matInput type="number" min="1" max="10" name="mandatorySkillsWeightage"
+                                class="mat-body" [(ngModel)]="requirementData.mandatorySkillsWeightage" required [disabled]="!isFormEditable || isSubmitting || !requirementData.mandatorySkills">
+                        </mat-form-field>
+                        <span class="field-description mat-caption mat-body-small">Weightage range should be between 1
+                            to 10</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-divider"></div>
+
+            <div class="experience-header-row">
+                <div class="experience-header-section">
+                    <p class="requirement-section-title">Optional Skills</p>
+                    <p class="experience-instruction">Valuable but non-essential qualifications relevant to
+                        the role</p>
+                </div>
+
+                <div class="experience-fields">
+                    <mat-form-field appearance="outline" class="form-field skill-field">
+                        <mat-label class="mat-body">List all Optional skills separated by comma (,)</mat-label>
+                        <textarea matInput rows="3" name="optionalSkills" class="mat-body"
+                            [(ngModel)]="requirementData.optionalSkills" (input)="onFormChange()" [readonly]="!isFormEditable || isSubmitting"></textarea>
+                    </mat-form-field>
+                    <div class="form-field weightage-field" style="display: flex; flex-direction: column;">
+                        <mat-form-field appearance="outline">
+                            <mat-label class="mat-body">Weightage</mat-label>
+                            <input matInput type="number" min="1" max="10" name="optionalSkillsWeightage"
+                                class="mat-body" [(ngModel)]="requirementData.optionalSkillsWeightage" [disabled]="!isFormEditable || isSubmitting || !requirementData.optionalSkills">
+                        </mat-form-field>
+                        <span class="field-description mat-caption mat-body-small">Weightage range should be between 1
+                            to 10</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-divider"></div>
+
+            <div class="experience-header-row">
+                <div class="experience-header-section">
+                    <p class="requirement-section-title">Education</p>
+                    <p class="experience-instruction">Academic background and qualifications relevant to the
+                        role</p>
+                </div>
+
+                <div class="experience-fields">
+                    <mat-form-field appearance="outline" class="form-field skill-field">
+                        <mat-label class="mat-body">Description</mat-label>
+                        <textarea matInput rows="3" name="education" class="mat-body"
+                            [(ngModel)]="requirementData.education" (input)="onFormChange()" required [readonly]="!isFormEditable || isSubmitting"></textarea>
+                    </mat-form-field>
+                    <div class="form-field weightage-field" style="display: flex; flex-direction: column;">
+                        <mat-form-field appearance="outline">
+                            <mat-label class="mat-body">Weightage</mat-label>
+                            <input matInput type="number" min="1" max="10" name="educationWeightage" class="mat-body"
+                                [(ngModel)]="requirementData.educationWeightage" required [disabled]="!isFormEditable || isSubmitting || !requirementData.education">
+                        </mat-form-field>
+                        <span class="field-description mat-caption mat-body-small">Weightage range should be between 1
+                            to 10</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-divider"></div>
+
+            <div class="experience-header-row">
+                <div class="experience-header-section">
+                    <p class="requirement-section-title">Certifications</p>
+                    <p class="experience-instruction mat-body-2">Verified credentials that support professional
+                        expertise and role
+                        eligibility</p>
+                </div>
+
+                <div class="experience-fields">
+                    <mat-form-field appearance="outline" class="form-field skill-field">
+                        <mat-label class="mat-body">Description</mat-label>
+                        <textarea matInput rows="3" name="certifications" class="mat-body"
+                            [(ngModel)]="requirementData.certifications" (input)="onFormChange()" [readonly]="!isFormEditable || isSubmitting"></textarea>
+                    </mat-form-field>
+                    <div class="form-field weightage-field" style="display: flex; flex-direction: column;">
+                        <mat-form-field appearance="outline">
+                            <mat-label class="mat-body">Weightage</mat-label>
+                            <input matInput type="number" min="1" max="10" name="certificationsWeightage"
+                                class="mat-body" [(ngModel)]="requirementData.certificationsWeightage" [disabled]="!isFormEditable || isSubmitting || !requirementData.certifications">
+                        </mat-form-field>
+                        <span class="field-description mat-caption mat-body-small">Weightage range should be between 1
+                            to 10</span>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="button-container">
+                <!-- <button mat-flat-button class="mat-body" type="submit" [disabled]="!requirementForm.valid || !requirementData.experience">Save and Proceed</button> -->
+        <button mat-flat-button class="mat-body" type="submit"
+            [disabled]="!requirementForm.valid || !isFormEditable || isSubmitting || (originalFormData && !isFormChanged)">
+                    <span *ngIf="!isSubmitting">Save and Proceed</span>
+                    <span *ngIf="isSubmitting" class="loader-container">
+                        <mat-icon class="spinner">sync</mat-icon>
+                        Processing...
+                    </span>
+                </button>
+            </div>
+        </div>
+    </form>
+</div>

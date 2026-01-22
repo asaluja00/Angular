@@ -1,0 +1,89 @@
+<app-breadcrumbs [fragments]="breadcrumbs"></app-breadcrumbs>
+
+<div class="main mat-elevation-z1">
+    <div class="main-header">
+        <div class="header-left">
+            <button mat-icon-button (click)="goBack()">
+                <mat-icon>arrow_back</mat-icon>
+            </button>
+            <div class="mat-title-large">{{ requirementTitle }}</div>
+        </div>
+        <div *ngIf="isExistingRequirement">
+            <ng-container *ngIf="!isReadOnlyRequirement; else closedMsg">
+                <button mat-flat-button color="primary" (click)="openCloseRequirementDialog()">
+                    <mat-icon>check</mat-icon>
+                   <span class="mat-body-small" style="font-weight: 500;">Close Requirement</span> 
+                </button>
+            </ng-container>
+            <ng-template #closedMsg>
+                <!-- <button mat-flat-button color="primary" class="reopen-requirement-btn mat-body-small"  (click)="onReopenRequirement()">
+                    Reopen Requirement
+                </button> -->
+            </ng-template>
+        </div>
+    </div>
+    <div class="main-content">
+        <div class="process-steps">
+            <div class="step-row">
+                <div class="step-item" [class.active]="activeStep() === 1" [class.inactive]="activeStep() !== 1" (click)="setActiveStep(1)">
+                    <div class="step-number">
+                        @if (requirementId && (resumeUploadCount > 0)) {
+                            1
+                        } @else {
+                            <mat-icon class="my-custom-class" matTooltip="Edit details" matTooltipPosition="above">edit</mat-icon>
+                        }
+                    </div>
+                    <div class="step-content">
+                        <h2 class="step-title"
+    [class.pointer]="requirementId"
+    [matTooltip]="(resumeUploadCount > 0) ? 'View details' : (requirementId ? 'Edit details' : null)">
+    {{ (resumeUploadCount > 0) ? 'Add Requirements and Job Details' : (requirementId ? 'Edit Requirements and Job Details' : 'Add Requirements and Job Details') }}
+</h2>
+                    </div>
+                </div>
+                
+                <div class="divider-container">
+                    <div class="horizontal-divider" [class.inactive]="activeStep() < 2"></div>
+                </div>
+                
+                <div class="step-item" [class.active]="activeStep() === 2" [class.inactive]="activeStep() !== 2" [class.disabled]="!requirementId" (click)="requirementId && setActiveStep(2)" [ngStyle]="!requirementId ? {'pointer-events':'none','opacity':'0.6'} : {}">
+                        <div class="step-number">
+                   <ng-container *ngIf="requirementId && uploadedCandidates && uploadedCandidates.length !== 0; else stepNum2">
+                                <mat-icon class="my-custom-class" matTooltip="Edit resumes" matTooltipPosition="above">edit</mat-icon>
+                            </ng-container>
+                            <ng-template #stepNum2>2</ng-template>
+                        </div>
+                    <div class="step-content">
+                        <h2 class="step-title mat-title-small" [class.pointer]="requirementId">Upload Resumes</h2>
+                    </div>
+                </div>
+                
+                <div class="divider-container">
+                    <div class="horizontal-divider" [class.inactive]="activeStep() < 3"></div>
+                </div>
+                
+                <div class="step-item" [class.active]="activeStep() === 3" [class.inactive]="activeStep() !== 3" [class.disabled]="!requirementId" (click)="requirementId && setActiveStep(3)" [ngStyle]="!requirementId ? {'pointer-events':'none','opacity':'0.6'} : {}">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h2 class="step-title mat-title-small" [class.pointer]="requirementId">View and Analyze the profiles</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="step-content-container">
+            @if (activeStep() === 1) {
+                <app-add-requirements-job-details [isReadOnly]="isReadOnlyRequirement" (proceed)="onRequirementProceed($event)"></app-add-requirements-job-details>
+            } @else if (activeStep() === 2 && requirementId) {
+                <app-upload-resumes [requirementId]="requirementId" (proceed)="onNextStep($event)"></app-upload-resumes>
+            } @else if (activeStep() === 3) {
+                <app-view-analyze-profiles [candidates]="uploadedCandidates" [requirementId]="requirementId" (proceed)="onNextStep()" (resumeReuploaded)="onResumeReuploaded()">
+                    <!-- Debug count display -->
+                    <div *ngIf="uploadedCandidates.length > 0" class="mt-2 text-sm">
+                        Found {{uploadedCandidates.length}} candidates for requirement #{{requirementId}}
+                    </div>
+                </app-view-analyze-profiles>
+            }
+        </div>
+    </div>
+</div>

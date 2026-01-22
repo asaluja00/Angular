@@ -1,0 +1,30 @@
+<mat-card class="success-dialog">
+  <mat-icon class="close-button" (click)="dialogRef.close()">close</mat-icon>
+  <mat-card-content>
+    <!-- <div class="success-shadow"> -->
+    <div class="success-container">
+      <div class="confetti-container">
+        <div class="confetti" style="--color: #FFB74D; --delay: 0s; --left: 25%"></div>
+        <div class="confetti" style="--color: #AF5CD8; --delay: 0.2s; --left: 40%"></div>
+        <div class="confetti" style="--color: #4CAF50; --delay: 0.4s; --left: 55%"></div>
+        <div class="confetti" style="--color: #2196F3; --delay: 0.6s; --left: 70%"></div>
+        <div class="confetti" style="--color: #FF5252; --delay: 0.8s; --left: 85%"></div>
+        <div class="confetti" style="--color: #E8F5E9; --delay: 1s; --left: 30%"></div>
+      </div>
+      <div class="success-circle">
+        <mat-icon>check</mat-icon>
+      </div>
+    </div>
+    <p class="mat-title-large" style="color: #0D6D00;">Your interview has been scheduled successfully!</p>
+    <p class="mat-body">We are excited to meet you!</p>
+    <mat-card class="details-card">
+      <mat-card-content>
+        <p class="mat-body-small"><span class="mat-title-small">Date:</span> {{data.date | date:'EEEE d\'th\' MMMM, y'}}</p>
+        <p class="mat-body-small"><span class="mat-title-small">Time:</span> {{getTimeFormat(data.time)}}</p>
+        <p class="mat-body-small"><span class="mat-title-small">Duration:</span> 1 Hour</p>
+      </mat-card-content>
+    </mat-card>
+    <p class="note mat-body-small">Please check your email for confirmation<br>and further instructions</p>
+  </mat-card-content>
+</mat-card>
+

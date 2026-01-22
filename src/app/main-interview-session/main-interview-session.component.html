@@ -1,0 +1,12 @@
+<div style="text-align:center; margin-top: 40px;">
+  <h2>🎤 AI Interview Session</h2>
+  <p *ngIf="isSpeaking">🤖 AI is speaking...</p>
+  <p *ngIf="isListening">🎙️ Listening to candidate...</p>
+
+  <div style="max-width:600px; margin:20px auto; text-align:left;">
+    <div *ngFor="let msg of messages">
+      <strong>{{ msg.role === 'assistant' ? 'AI:' : 'Candidate:' }}</strong>
+      <span>{{ msg.content }}</span>
+    </div>
+  </div>
+</div>

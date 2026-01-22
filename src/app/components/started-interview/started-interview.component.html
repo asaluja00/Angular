@@ -1,0 +1,79 @@
+<div class="ai-interview-header">
+  <img src="assets/images/new-logo.png" style="background-color: transparent;" alt="logo" width="215">
+</div>
+<div class="interview-session-container" [class.fullscreen]="isFullscreen">
+
+  <!-- Face Verification Status -->
+  <div class="face-status" [style.color]="statusColor" style="font-weight: bold; margin-bottom: 12px;">
+    {{ statusMessage }}
+  </div>
+
+  <!-- Notification for webcam/mic access is now handled by MatSnackBar in the component -->
+  <!-- Optionally, show a fullscreen prompt if required by browser or UX policy -->
+
+  <!-- Step 1: Start Interview button (screen sharing) -->
+  <div *ngIf="!screenSharingAllowed && !isInterviewActive" class="start-interview-prompt">
+
+  </div>
+
+
+
+  <div class="interview-panels">
+    <!-- Left panel - Candidate -->
+    <div class="candidate-panel">
+      <div class="video-container" [class.video-off]="!isVideoOn"
+        [class.speaker-active]="currentSpeaker === 'candidate'">
+        <!-- Webcam video stream when camera is on -->
+        <video #webcamVideo *ngIf="isVideoOn" autoplay muted playsinline class="candidate-video"></video>
+        <!-- Fallback profile image when camera is off -->
+        <img *ngIf="!isVideoOn" src="assets/images/profile-pic.jpg" alt="Candidate" class="candidate-video" />
+
+        <!-- Recording indicator - now inside video container, top left -->
+        <div class="recording-indicator" *ngIf="isRecording" [class.active]="isRecording">
+          <div class="recording-dot"></div>
+          <mat-icon>fiber_manual_record</mat-icon>
+          <span>RECORDING {{ formattedRecordingDuration }}</span>
+        </div>
+
+        <div class="name-badge">
+          <span>{{candidateName}}</span>
+          <div class="status-indicators">
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- <img *ngIf="imageSrc" [src]="imageSrc" alt="Candidate Image" style="max-width: 300px; border: 1px solid #ccc;"> -->
+    <!-- Right panel - AI Interviewer -->
+    <div class="ai-interviewer-panel" [class.speaker-active]="currentSpeaker === 'ai'">
+      <div class="ai-avatar-container">
+        <img src="assets/images/robo.png" alt="AI Interviewer" class="ai-avatar" />
+        <div class="ai-info">
+          <!-- <span class="ai-name">AI Interviewer</span> -->
+          <div class="status-indicators">
+            <!-- <mat-icon *ngIf="isMuted" class="status-icon muted">mic_off</mat-icon> -->
+          </div>
+          <div class="audio-wave" [class.hidden]="isMuted || !isInterviewActive">
+            <!-- Audio wave visualization -->
+            <div class="bar bar1"></div>
+            <div class="bar bar2"></div>
+            <div class="bar bar3"></div>
+            <div class="bar bar4"></div>
+            <div class="bar bar5"></div>
+            <div class="bar bar6"></div>
+            <div class="bar bar7"></div>
+            <div class="bar bar8"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Interview ended overlay -->
+  <div class="interview-ended-overlay" *ngIf="interviewEnded">
+    <div class="ended-message">
+      <mat-icon>check_circle</mat-icon>
+      <h2>Interview Completed</h2>
+      <p>Thank you for participating in the interview.</p>
+    </div>
+  </div>
+</div>
+<div class="footer mat-label-large">&copy; 2025 Tech Mahindra Limited</div>

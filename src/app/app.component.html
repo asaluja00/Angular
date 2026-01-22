@@ -1,0 +1,7 @@
+
+<div *ngIf="isLoggedIn && !showInterviewPage && !showEarlyAccessPage && !showStartedInterviewPage && !showErrorMessage && !showInterviewPrecheck && !showNewInterviewPage">
+    <app-navigation></app-navigation>
+</div>
+<ng-container *ngIf="showInterviewPage || showEarlyAccessPage || showStartedInterviewPage || showErrorMessage || showInterviewPrecheck || showNewInterviewPage">
+  <router-outlet></router-outlet>
+</ng-container>

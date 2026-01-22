@@ -1,0 +1,62 @@
+<mat-nav-list [ngClass]="{ 'submenu': isSubmenu, 'show': isExpanded }">
+    <div>
+    @for (listItem of navListItems; track listItem.label) {
+
+        @if (!listItem.icon && !listItem.route) {
+            @if (isHandset || (sidenavWidthDesktop() === sidenavWidthEnum.FULL)) {                
+                <div mat-subheader class="sidenav-sub-header">Other Information</div>
+            }
+        } @else {
+            <mat-list-item
+                [routerLink]="listItem.route"
+                routerLinkActive
+                #rla="routerLinkActive"
+                [activated]="rla.isActive"
+                disableRipple=true
+                (click)="listItem.children ? isHandset || (sidenavWidthDesktop() === sidenavWidthEnum.FULL) ? expandCollapse(listItem.label) : null : null"
+                [cdkMenuTriggerFor]="listItem.children ? isHandset || (sidenavWidthDesktop() === sidenavWidthEnum.FULL) ? null : submenu : null"
+            >
+                @if (nestingLevel === 0) {
+                    <mat-icon matListItemIcon>{{ listItem.icon }}</mat-icon>
+                }
+                <span
+                    matListItemTitle
+                    [style.paddingLeft]="nestingLevel * 16 + 'px'"
+                    [ngClass]="{ 'mat-label-large': isSubmenu }"
+                >
+                    @if (nestingLevel > 0) {
+                        &#x2022; &nbsp; 
+                    }
+                    {{ listItem.label }}
+                </span>
+                @if (listItem.children) {
+                    <span matListItemMeta>
+                        <mat-icon class="expand-icon" [ngClass]="{ 'expanded': expandedItems.includes(listItem.label) }">stat_minus_1</mat-icon>
+                    </span>
+                }
+
+                <ng-template #submenu>
+                    @if (listItem.children) {
+                        <app-submenu [navListItems]="listItem.children" [nestingLevel]="nestingLevel"></app-submenu>
+                    }
+                </ng-template>
+                
+            </mat-list-item>
+
+            @if (listItem.children) {
+                <app-navigation-list
+                    [isSubmenu]="true"
+                    [parentLabel]="listItem.label"
+                    [navListItems]="listItem.children"
+                    [isExpanded]="expandedItems.includes(listItem.label)"
+                    [nestingLevel]="nestingLevel + 1"
+                    [isHandset]="isHandset"
+                    [sidenavWidthDesktop]="sidenavWidthDesktop()"
+                >
+                </app-navigation-list>
+            }
+        }
+
+    }
+    </div>
+</mat-nav-list>

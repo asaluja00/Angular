@@ -1,0 +1,31 @@
+.muted {
+    // color: rgba(0, 0, 0, 0.54);
+    color:#090909DE;
+}
+
+.breadcrumbs-container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 0.75em;
+    height: 24px;
+}
+
+.breadcrumb {
+    cursor: pointer;
+
+    &:hover {
+        color: #0038ff;
+    }
+}
+
+.separator {
+    margin: 0 6px;
+    // width: 18px;
+    // height: 18px;
+    // font-size: 1.12rem;
+}
+
+.active-fragment {
+    color: #79747E;
+}

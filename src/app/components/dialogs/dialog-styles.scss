@@ -1,0 +1,22 @@
+.custom-dialog-container .mat-mdc-dialog-surface {
+  // border-radius: 12px;
+  // box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+  overflow: hidden;
+}
+
+/* Customize Material dialog overlay */
+.cdk-overlay-backdrop.cdk-overlay-backdrop-showing {
+  // background-color: rgba(0, 0, 0, 0.5);
+}
+
+/* Remove padding from dialog container */
+.mat-mdc-dialog-container .mdc-dialog__surface {
+  // padding: 0;
+  display: block;
+  border-radius: 8px;
+  outline: 0;
+}
+::ng-deep .mat-mdc-dialog-container {
+  width: 800px !important;
+  max-width: none !important;
+}

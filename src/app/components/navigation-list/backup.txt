@@ -1,0 +1,205 @@
+<ng-template #submenu>
+    @if (listItem.children) {
+        <app-submenu [navListItems]="listItem.children" [nestingLevel]="nestingLevel"></app-submenu>
+        <!-- <div class="sub-menu" [ngClass]="{ 'sub-menu-indent': nestingLevel === 0 }" cdkMenu>
+            @for (childItem of listItem.children; track childItem.label) {
+                <div class="sub-menu-item" cdkMenuItem [cdkMenuTriggerFor]="childItem.children ? submenu : null">
+                    <div class="list-item-title">{{ childItem.label }}</div>
+                    @if (childItem.children) {
+                        <mat-icon class="list-item-meta">arrow_right</mat-icon>
+                    }
+                </div>
+            }
+        </div> -->
+    }
+</ng-template>
+
+<!-- <mat-list-item disableRipple=true>
+        <mat-icon matListItemIcon>toc</mat-icon>
+        <span matListItemTitle>Orders</span>
+    </mat-list-item>
+    <mat-list-item disableRipple=true>
+        <mat-icon matListItemIcon>shoppingmode</mat-icon>
+        <span matListItemTitle>Products</span>
+    </mat-list-item>
+    <mat-list-item disableRipple=true>
+        <mat-icon matListItemIcon>folder</mat-icon>
+        <span matListItemTitle>Categories</span>
+    </mat-list-item>
+    <mat-list-item disableRipple=true>
+        <mat-icon matListItemIcon>finance</mat-icon>
+        <span matListItemTitle>Reports</span>
+    </mat-list-item>
+    <mat-list-item disableRipple=true>
+        <mat-icon matListItemIcon>star</mat-icon>
+        <span matListItemTitle>Coupons</span>
+    </mat-list-item>
+    <mat-list-item disableRipple=true>
+        <mat-icon matListItemIcon>grid_view</mat-icon>
+        <span matListItemTitle>Applications</span>
+    </mat-list-item>
+    @if (isHandset || (sidenavWidthDesktop() === sidenavWidthEnum.FULL)) {
+        <div mat-subheader class="sidenav-sub-header">Other Information</div>
+    }
+    <mat-list-item disableRipple=true>
+        <mat-icon matListItemIcon>help</mat-icon>
+        <span matListItemTitle>Knowledge Base</span>
+    </mat-list-item>
+    <mat-list-item
+        disableRipple=true
+        (click)="isHandset || (sidenavWidthDesktop() === sidenavWidthEnum.FULL) ? expandCollapse('Multi Level') : null"
+        [cdkMenuTriggerFor]="isHandset || (sidenavWidthDesktop() === sidenavWidthEnum.FULL) ? null : animals"
+    >
+        <mat-icon matListItemIcon>help</mat-icon>
+        <span matListItemTitle>Multi Level</span>
+        <span matListItemMeta>
+            <mat-icon class="expand-icon" [ngClass]="{ 'expanded': expandedItems.includes('Multi Level') }">stat_minus_1</mat-icon>
+        </span>
+    </mat-list-item>
+    <mat-nav-list class="submenu" [ngClass]="{ 'show': expandedItems.includes('Multi Level') }">
+        <div>
+            <mat-list-item disableRipple=true (click)="isHandset || (sidenavWidthDesktop() === sidenavWidthEnum.FULL) ? expandCollapse('Coupons') : null">
+                <span matListItemTitle>&#x2022; &nbsp; Coupons</span>
+                <span matListItemMeta>
+                    <mat-icon class="expand-icon" [ngClass]="{ 'expanded': expandedItems.includes('Coupons') }">stat_minus_1</mat-icon>
+                </span>
+            </mat-list-item>
+            <mat-nav-list class="submenu" [ngClass]="{ 'show': expandedItems.includes('Coupons') }">
+                <div>
+                    <mat-list-item disableRipple=true>
+                        <span matListItemTitle class="text-indent">&#x2022; &nbsp; Coupons</span>
+                    </mat-list-item>
+                    <mat-list-item disableRipple=true>
+                        <span matListItemTitle class="text-indent">&#x2022; &nbsp; Coupons</span>
+                    </mat-list-item>
+                </div>
+            </mat-nav-list>
+            <mat-list-item disableRipple=true>
+                <span matListItemTitle>&#x2022; &nbsp; Coupons</span>
+            </mat-list-item>
+        </div>
+    </mat-nav-list>
+    <mat-list-item disableRipple=true>
+        <mat-icon matListItemIcon>folder</mat-icon>
+        <span matListItemTitle>Categories</span>
+    </mat-list-item>
+    
+
+    <ng-template #animals>
+        <div class="sub-menu sub-menu-indent" cdkMenu>
+            <div class="sub-menu-item" cdkMenuItem [cdkMenuTriggerFor]="vertebrates">
+                <div class="list-item-title">Vertebrates</div>
+                <mat-icon class="list-item-meta">arrow_right</mat-icon>
+            </div>
+            <div class="sub-menu-item" cdkMenuItem [cdkMenuTriggerFor]="invertebrates">
+                <div class="list-item-title">Invertebrates</div>
+                <mat-icon class="list-item-meta">arrow_right</mat-icon>
+            </div>
+        </div>
+    </ng-template>
+
+    <ng-template #vertebrates>
+        <div class="sub-menu" cdkMenu>
+            <div class="sub-menu-item" cdkMenuItem [cdkMenuTriggerFor]="fish">
+                <div class="list-item-title">Fishes</div>
+                <mat-icon class="list-item-meta">arrow_right</mat-icon>
+            </div>
+            <div class="sub-menu-item" cdkMenuItem [cdkMenuTriggerFor]="amphibians">
+                <div class="list-item-title">Amphibians</div>
+                <mat-icon class="list-item-meta">arrow_right</mat-icon>
+            </div>
+            <div class="sub-menu-item" cdkMenuItem [cdkMenuTriggerFor]="reptiles">
+                <div class="list-item-title">Reptiles</div>
+                <mat-icon class="list-item-meta">arrow_right</mat-icon>
+            </div>
+            <div class="sub-menu-item" cdkMenuItem>
+                <div class="list-item-title">Birds</div>
+            </div>
+            <div class="sub-menu-item" cdkMenuItem>
+                <div class="list-item-title">Mammals</div>
+            </div>
+        </div>
+    </ng-template>
+      
+    <ng-template #invertebrates>
+        <div class="sub-menu" cdkMenu>
+            <div class="sub-menu-item" cdkMenuItem>
+                <div class="list-item-title">Insects</div>
+            </div>
+            <div class="sub-menu-item" cdkMenuItem>
+                <div class="list-item-title">Molluscs</div>
+            </div>
+            <div class="sub-menu-item" cdkMenuItem>
+                <div class="list-item-title">Crustaceans</div>
+            </div>
+            <div class="sub-menu-item" cdkMenuItem>
+                <div class="list-item-title">Corals</div>
+            </div>
+            <div class="sub-menu-item" cdkMenuItem>
+                <div class="list-item-title">Arachnids</div>
+            </div>
+            <div class="sub-menu-item" cdkMenuItem>
+                <div class="list-item-title">Velvet worms</div>
+            </div>
+            <div class="sub-menu-item" cdkMenuItem>
+                <div class="list-item-title">Horseshoe crabs</div>
+            </div>
+        </div>
+    </ng-template>
+
+    <ng-template #fish>
+        <div class="sub-menu" cdkMenu>
+            <div class="sub-menu-item" cdkMenuItem>
+                <div class="list-item-title">Baikal oilfish</div>
+            </div>
+            <div class="sub-menu-item" cdkMenuItem>
+                <div class="list-item-title">Bala shark</div>
+            </div>
+            <div class="sub-menu-item" cdkMenuItem>
+                <div class="list-item-title">Ballan wrasse</div>
+            </div>
+            <div class="sub-menu-item" cdkMenuItem>
+                <div class="list-item-title">Bamboo shark</div>
+            </div>
+            <div class="sub-menu-item" cdkMenuItem>
+                <div class="list-item-title">Banded killifish</div>
+            </div>
+        </div>
+    </ng-template>
+      
+    <ng-template #amphibians>
+        <div class="sub-menu" cdkMenu>
+            <div class="sub-menu-item" cdkMenuItem>
+                <div class="list-item-title">Sonoran desert toad</div>
+            </div>
+            <div class="sub-menu-item" cdkMenuItem>
+                <div class="list-item-title">Western toad</div>
+            </div>
+            <div class="sub-menu-item" cdkMenuItem>
+                <div class="list-item-title">Arroyo toad</div>
+            </div>
+            <div class="sub-menu-item" cdkMenuItem>
+                <div class="list-item-title">Yosemite toad</div>
+            </div>
+        </div>
+    </ng-template>
+      
+    <ng-template #reptiles>
+        <div class="sub-menu" cdkMenu>
+            <div class="sub-menu-item" cdkMenuItem>
+                <div class="list-item-title">Banded Day Gecko</div>
+            </div>
+            <div class="sub-menu-item" cdkMenuItem>
+                <div class="list-item-title">Banded Gila Monster</div>
+            </div>
+            <div class="sub-menu-item" cdkMenuItem>
+                <div class="list-item-title">Black Tree Monitor</div>
+            </div>
+            <div class="sub-menu-item" cdkMenuItem>
+                <div class="list-item-title">Blue Spiny Lizard</div>
+            </div>
+            <div class="sub-menu-item" cdkMenuItem>
+                <div class="list-item-title">Velociraptor</div>
+            </div>
+        </div>
+    </ng-template> -->

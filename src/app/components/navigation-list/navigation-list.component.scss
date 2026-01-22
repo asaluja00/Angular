@@ -1,0 +1,35 @@
+.submenu {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: 300ms ease-in-out;
+    padding: 0;
+    // background-color: #131313;
+  
+    > div {
+      overflow: hidden;
+    }
+  }
+  
+  .text-indent {
+    padding-left: 16px;
+  }
+  
+  .show {
+    grid-template-rows: 1fr;
+  }
+
+  .expand-icon {
+    transition: all 0.3s ease-in-out;
+  }
+
+  .expanded {
+    transform: rotate(-180deg);
+  }
+
+  .sidenav-sub-header {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    align-self: center;
+    flex: 1;
+  }

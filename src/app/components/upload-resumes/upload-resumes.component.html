@@ -1,0 +1,139 @@
+﻿
+
+<div class="content-container">
+    <h2 class="upload-heading">Upload Resumes</h2>
+    <div class="upload-container">
+        <div class="upload-flex-container">
+            <div class="upload-section" style="position:relative;">
+                <div *ngIf="isSavingAndProceeding" class="section-blocking-overlay"></div>
+                <div class="upload-box mat-elevation-z1">
+                    <div class="upload-content">
+                        <mat-icon class="upload-icon material-symbols-outlined filled-icon">cloud_upload</mat-icon>
+                        <div class="upload-text">
+                            <p class="upload-instruction">
+                                <span class="upload-link" (click)="showUploadOptions()" [class.disabled-action]="isSavingAndProceeding">Click
+                                    Here</span>
+                                <span class="upload-format"> to upload multiple resumes at once or
+                                </span>
+                                <span class="upload-link" (click)="selectFolder()" [class.disabled-action]="isSavingAndProceeding">Select Folder</span>
+                            </p>
+                            <p class="upload-format">File Format doc, docx, pdf (5Mb each)</p>
+                        </div>
+                    </div>
+                    <input type="file" id="fileInput" #fileInput hidden multiple
+                        accept="application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/pdf"
+                        (change)="onFileSelected($event)" [disabled]="isSavingAndProceeding">
+                    <input type="file" id="folderInput" #folderInput hidden webkitdirectory directory multiple
+                        accept="application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/pdf"
+                        (change)="onFolderSelected($event)" [disabled]="isSavingAndProceeding">
+                </div>
+
+                <!-- Error message -->
+                @if (fileError) {
+                <mat-error class="error-message">
+                    <span class="mat-body-small">{{ fileError }}</span>
+                </mat-error>
+                }
+            </div>
+
+            <!-- Rectangle box for uploaded files - always show the section but conditionally show content -->
+            <div class="uploaded-files-section">
+                <p class="uploaded-files-heading mat-title-small">Upload Process</p>
+
+                <!-- Uploading status text -->
+                <div class="uploading-status" *ngIf="anySelectedFileUploading()">
+                    <span>Uploading</span>
+                </div>
+                <!-- Uploaded files status text - shows after all uploads are complete -->
+                <div class="uploaded-files-status mat-body-small" *ngIf="allSelectedFilesUploaded()">
+                    <span>Uploaded Files</span>
+                </div>
+
+                <!-- Empty state div with no text -->
+                <div class="empty-state" *ngIf="selectedFiles.length === 0 || fileError"></div>
+
+                <!-- Show files only when there are selected files and no errors -->
+                <div class="selected-files" *ngIf="selectedFiles.length > 0 && !fileError">
+                    <!-- Display only folders -->
+                    <ng-container *ngFor="let file of selectedFiles">
+                        <!-- For folder uploads, display only the folder -->
+                        <div class="file-item folder-item" *ngIf="isFolder(file)">
+                            <div class="file-item-content">
+                                <mat-icon class="file-icon">folder</mat-icon>
+                                <div class="file-info">
+                                    <span class="file-name mat-title-small" [matTooltip]="file.name">{{ file.name
+                                        }}</span>
+                                    <span class="file-date mat-body-small">{{ getFormattedDateTime() }}</span>
+                                    <!-- <span class="file-size mat-body-small">{{ getFileSize(file) }}</span> -->
+                                </div>
+                                <mat-icon class="status-icon"
+                                    *ngIf="getFileUploadStatus(file).completed">check_circle</mat-icon>
+                                <mat-icon class="delete-icon material-symbols-outlined"
+                                    (click)="deleteFile(file)" [class.disabled-action]="isSavingAndProceeding">delete</mat-icon>
+                            </div>
+                            <!-- Show progress bar during upload -->
+                            <div class="progress-container" *ngIf="getFileUploadStatus(file).isUploading">
+                                <mat-progress-bar mode="determinate" [value]="getFileUploadStatus(file).progress"
+                                    color="primary"></mat-progress-bar>
+                                <span class="progress-text">{{ getFileUploadStatus(file).progress }}% uploaded</span>
+                            </div>
+                            <!-- Show upload complete message when upload is done but files are still displayed -->
+                            <!-- <div class="upload-complete" *ngIf="getFileUploadStatus(file).completed">
+                                        <span class="complete-text">Upload complete</span>
+                                    </div> -->
+                        </div>
+
+                        <!-- For single file uploads, display each file -->
+                        <div class="file-item" *ngIf="!isFolder(file) && !file.webkitRelativePath">
+                            <div class="file-item-content">
+                                <mat-icon class="file-icon material-symbols-outlined">description</mat-icon>
+                                <div class="file-info">
+                                    <span class="file-name mat-title-small" [matTooltip]="file.name">{{ file.name
+                                        }}</span>
+                                    <span class="file-date mat-body-small">{{ getFormattedDateTime() }}</span>
+                                    <!-- <span class="file-size mat-body-small">{{ getFileSize(file) }}</span> -->
+                                </div>
+                                <mat-icon class="status-icon"
+                                    *ngIf="getFileUploadStatus(file).completed">check_circle</mat-icon>
+                                <mat-icon class="delete-icon material-symbols-outlined"
+                                    (click)="deleteFile(file)" [class.disabled-action]="isSavingAndProceeding">delete</mat-icon>
+                            </div>
+                            <!-- Show progress bar during upload -->
+                            <div class="progress-container" *ngIf="getFileUploadStatus(file).isUploading">
+                                <mat-progress-bar mode="determinate" [value]="getFileUploadStatus(file).progress"
+                                    color="primary"></mat-progress-bar>
+                                <span class="progress-text">{{ getFileUploadStatus(file).progress }}% uploaded</span>
+                            </div>
+                            <!-- Show upload complete message when upload is done but files are still displayed -->
+                            <!-- <div class="upload-complete" *ngIf="getFileUploadStatus(file).completed">
+                                        <span class="complete-text">Upload complete</span>
+                                    </div> -->
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+        </div>
+
+        <div class="button-container">
+            <button mat-flat-button [class.primary-button]="selectedFiles.length > 0 || uploadedFiles.length > 0"
+                [disabled]="isUploading || (selectedFiles.length === 0 && uploadedFiles.length === 0)"
+                (click)="onSaveAndProceed()">
+                Save and Proceed
+            </button>
+        </div>
+
+
+
+        <!-- Indeterminate progress bar shown while API is in progress -->
+        <div *ngIf="isSavingAndProceeding" class="progress-bar-container">
+            <div class="processing-text">Processing your profiles. Please wait...</div>
+            <mat-progress-bar mode="indeterminate" color="primary"></mat-progress-bar>
+        </div>
+
+        <!-- Processing completed message -->
+        <div *ngIf="isProcessingCompleted" class="progress-bar-container">
+            <div class="processing-text" style="color:#000000;">Processing completed!</div>
+        </div>
+    </div>
+</div>
+

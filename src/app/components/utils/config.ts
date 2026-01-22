@@ -1,0 +1,27 @@
+export const Config = {
+    GET_EMPLOYEE_BASE_DATA_BY_ID:'/employee-base/GetEmployeeDetails',
+    
+    SAVE_REQUIREMENT_DETAILS:'/save_jd',
+    READ_REQUIREMENT_TEMPLATE:'/read_jd',
+    DOWNLOAD_REQUIREMENT_TEMPLATE:'/download_jd',
+    GET_REQUIREMENTS:'/requirements',
+    UPLOAD_RESUMES:'/read_resume',
+    SEND_EMAIL:'/sendmail',
+    GET_DASHBOARD_DATA:'/getAllRequirements',
+    GET_PROFILE_DATA_BY_ID:'/scheduling_details',
+    CLOSE_REQUIREMENT:'/closeRequirement',
+    GET_REQUIREMENT_DETAILS:'/getRequirementDetails',
+    ANALYZE_PROFILE:'/analyze_jd_resume',
+    GET_ANALYSIS_DETAILS:'/getAnalysisDetails',
+    SEND_INTERVIEW_DETAILS:'/save_form_Details',
+    GET_INTERVIEW_DETAILS:'/interview',
+    GENERATE_TRANSCRIPT:'/generate_transcript',
+    UPLOAD_CHUNKS:'/uploadChunks',
+    PROCESS_VIDEO:'/process_video',
+    REUPLOAD_RESUME: '/replace_resume',
+    SSO_LOGIN: '/login',
+    IS_LOGGED_IN: '/isLoggedIn',
+    LOGOUT: '/logout',
+    GET_IMAGE:'/candidate-image',
+    CHAT_TRANSCRIPT:'/chat_transcript'
+}

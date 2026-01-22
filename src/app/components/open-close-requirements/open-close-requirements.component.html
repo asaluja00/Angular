@@ -1,0 +1,47 @@
+<div class="main-content">
+    <div class="requirements-container">
+        <!-- Open requirements tab -->
+        <ng-container *ngIf="!isClosedTab">
+          <app-card 
+              *ngFor="let requirement of openRequirements"
+              [title]="requirement.title"
+              [date]="requirement.timestamp"
+              [designation]="requirement.role"
+              [icon]="'business_center'"
+              [profiles]="requirement.NoOfResume"
+              [isClosedRequirement]="requirement.isOpen === 'False'"
+              [closedDate]="''"
+              [reqId]="requirement.req_id"
+              (cardClicked)="onCardClick($event)">
+          </app-card>
+        </ng-container>
+        <!-- Closed requirements tab -->
+        <ng-container *ngIf="isClosedTab">
+          <app-card 
+              *ngFor="let requirement of closedRequirements"
+              [title]="requirement.title"
+              [date]="requirement.timestamp"
+              [designation]="requirement.role"
+              [icon]="'business_center'"
+              [profiles]="requirement.NoOfResume"
+              [isClosedRequirement]="requirement.isOpen === 'False'"
+              [closedDate]="requirement.closedDate"
+              [reqId]="requirement.req_id"
+              (cardClicked)="onCardClick($event)">
+          </app-card>
+        </ng-container>
+         <!-- <app-card 
+            *ngFor="let requirement of requirements"
+            [title]="requirement.title"
+            [date]="requirement.date"
+            [designation]="requirement.designation"
+            [isClosedRequirement]="requirement.isClosedRequirement"
+            [closedDate]="requirement.closedDate">
+        </app-card> -->
+        
+        <!-- Debug element to show when no cards are displayed -->
+        <div *ngIf="(!isClosedTab && openRequirements.length === 0) || (isClosedTab && closedRequirements.length === 0)" class="no-requirements">
+            No requirements to display
+        </div>
+    </div>
+</div>

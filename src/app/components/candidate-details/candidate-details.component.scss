@@ -1,0 +1,333 @@
+// Ensure color classes apply globally to .candidate-initials
+.candidate-initials.color-1 { background: #e5d6f3; color: #4B2566; }
+.candidate-initials.color-2 { background: #fbe3f0; color: #b0004b; }
+.candidate-initials.color-3 { background: #fff3d6; color: #b47a00; }
+.candidate-initials.color-4 { background: #e3e0ff; color: #3a2e8c; }
+.candidate-initials.color-5 { background: #d6f3f3; color: #006666; }
+.candidate-initials.color-6 { background: #d6fbe3; color: #1b5e20; }
+.candidate-details-container {
+    width: 100%;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    overflow: hidden;
+}
+
+.candidates-list {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    // border-radius: 8px;
+    overflow-y: auto; /* Enable vertical scrolling */
+    width: 100%;
+    flex: 1;
+    max-height: calc(100vh - 150px); /* Limit maximum height */
+    background-color: transparent;
+    border: 1px solid #E1E1E1;
+    
+    /* Custom scrollbar styles */
+    scrollbar-width: thin;
+    scrollbar-color: #8341A3 #f3eaff;
+
+    &::-webkit-scrollbar {
+        width: 8px;
+        background: #f3eaff;
+        border-radius: 8px;
+    }
+    &::-webkit-scrollbar-thumb {
+        background: #a259e6;
+        border-radius: 8px;
+    }
+    &::-webkit-scrollbar-track {
+        background: #f3eaff;
+        border-radius: 8px;
+    }
+    
+    .candidate-card {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        padding: 14px 16px 13px 16px;
+        transition: background-color 0.2s;
+        width: 100%;
+        box-sizing: border-box;
+        flex: 0 0 auto;
+        cursor: pointer;
+        background-color: white;
+        border: none;
+        border-bottom: 1px solid #E1E1E1;
+        
+        &:hover {
+            background-color: #f8f8f8;
+        }
+        
+        &:first-child {
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+        }
+        
+        &:last-child {
+            border-bottom-left-radius: 8px;
+            border-bottom-right-radius: 8px;
+        }
+        
+        &.selected {
+            background-color: #f3eaff;
+            border-left: 3px solid #8341A3;
+            padding-left: 13px; /* Adjust for the border */
+        }
+        
+        // .candidate-initials {
+        //     display: flex;
+        //     justify-content: center;
+        //     align-items: center;
+        //     width: 40px;
+        //     height: 40px;
+        //     border-radius: 50%;
+        //     margin-right: 16px;
+        //     color: #fff;
+        //     font-weight: 500;
+        //     background-color: #a278b5; /* Default background color */
+            
+        //     /* Different colors based on initials */
+        //     &.color-1 {
+        //         background-color: #a278b5; /* Purple */
+        //     }
+            
+        //     &.color-2 {
+        //         background-color: #e58fb3; /* Pink */
+        //     }
+            
+        //     &.color-3 {
+        //         background-color: #f6bd60; /* Yellow/Orange */
+        //     }
+            
+        //     &.color-4 {
+        //         background-color: #9381ff; /* Purple-Blue */
+        //     }
+            
+        //     &.color-5 {
+        //         background-color: #7bc4c4; /* Teal */
+        //     }
+            
+        //     &.color-6 {
+        //         background-color: #4caf50; /* Green */
+        //     }
+            
+        //     &.selected {
+        //         border: 2px solid #7355b2;
+        //     }
+        // }
+
+        .candidate-initials {
+    font-weight: 500;
+    font-size: 20px;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 12px;
+    flex-shrink: 0;
+    // Default color fallback
+    // color: #4B2566;
+
+    &.color-1 { background: #E1D7FE; color: #7355B2 !important; } // soft purple
+    &.color-2 { background: #F9D7E2; color: #C94F7C !important; } // soft pink
+    &.color-3 { background: #FFE7B2; color: #B47A00 !important; } // soft yellow
+    &.color-4 { background: #D7F3F3; color: #009CA6 !important; } // soft teal
+    &.color-5 { background: #D7F9E2; color: #1B5E20 !important; } // soft green
+    &.color-6 { background: #FBE3D6; color: #B0004B !important; } // soft coral
+}
+        
+        .candidate-details-wrapper {
+            display: flex;
+            flex: 1;
+            // align-items: center;
+            min-width: 0; /* Crucial for text overflow to work properly */
+        }
+        
+        .candidate-info {
+            flex: 1 1 auto;
+            min-width: 0; /* Allows text to be truncated */
+            overflow: hidden;
+
+            .candidate-name {
+                // margin: 0 0 4px 0;
+                font-size: 16px;
+                font-weight: 500;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                color: #202020;
+                letter-spacing: -0.2px;
+            }
+            
+            p {
+                margin: 0;
+                font-size: 13px;
+                color: #666;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                letter-spacing: 0.1px;
+            }
+            .candidate-position{
+                margin: 0 0 4px 0; 
+            }
+        }
+        
+        .candidate-actions {
+            display: flex;
+            gap: 4px;
+            flex: 0 0 auto;
+            
+            button {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 36px;
+                height: 36px;
+                line-height: 36px;
+                
+                ::ng-deep .mat-mdc-button-touch-target {
+                    width: 36px;
+                    height: 36px;
+                }
+                
+                mat-icon {
+                    font-size: 20px;
+                    width: 20px;
+                    height: 20px;
+                    color: #1C1B1F;
+                }
+                
+                mat-progress-spinner {
+                    margin: auto;
+                }
+            }
+        }
+    }
+}
+
+.empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    // padding: 64px 0;
+    background-color: #F5F5F5;
+   min-height: 500px;
+    
+    .empty-icon {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 80px;
+        height: 80px;
+        background-color: #f0f0f0;
+        border-radius: 50%;
+        margin-bottom: 16px;
+        
+        mat-icon {
+            font-size: 40px;
+            width: 40px;
+            height: 40px;
+            color: #999;
+        }
+    }
+    
+    .empty-text {
+        margin: 0 0 8px 0;
+        font-size: 16px;
+        font-weight: 500;
+        color: #333;
+    }
+    
+    .empty-subtext {
+        margin: 0;
+        font-size: 14px;
+        color: #666;
+    }
+}
+
+.match-score {
+  margin-top: 8px;
+  padding: 0;
+//   margin-bottom: 16px;
+
+  .score-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 4px;
+    width: 100%;
+  }
+
+  .score-label {
+    font-size: 12px;
+    color: rgba(0, 0, 0, 0.6);
+    white-space: nowrap;
+  }
+
+  .score-value {
+    font-size: 12px;
+    color: rgba(0, 0, 0, 0.7);
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+  .progress-container {
+    width: 100%;
+    
+    mat-progress-bar {
+      width: 100%;
+      height: 4px;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    ::ng-deep .mat-mdc-progress-bar {
+      border-radius: 4px;
+    }
+
+    // Default progress bar color
+    ::ng-deep .mat-mdc-progress-bar .mdc-linear-progress__bar-inner {
+      border-color: #0CAF03 !important;
+      background-color: #0CAF03 !important;
+    }
+
+    // High score progress bar (green - 50%+)
+    &.high-score ::ng-deep .mat-mdc-progress-bar .mdc-linear-progress__bar-inner {
+      border-color: #0CAF03 !important;
+      background-color: #0CAF03 !important;
+    }
+
+    // Low score progress bar (red - below 50%)
+    &.low-score ::ng-deep .mat-mdc-progress-bar .mdc-linear-progress__bar-inner {
+      border-color: #F44336 !important;
+      background-color: #F44336 !important;
+    }
+  }
+}
+
+.candidate-info-row {
+  display: flex;
+//   align-items: center;
+  width: 100%;
+  
+  .candidate-checkbox {
+    margin-right: 8px;
+    align-self: center;
+  }
+}
+
+.candidate-divider {
+  width: 100%;
+  margin: 16px 0 0 0;
+  border: none;
+  height: 0;
+  display: none; /* Hide the divider since we're using border-bottom on the card */
+}

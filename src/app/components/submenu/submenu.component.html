@@ -1,0 +1,22 @@
+<div class="sub-menu" [ngClass]="{ 'sub-menu-indent': nestingLevel === 0 }" cdkMenu>
+    @for (listItem of navListItems; track listItem.label) {
+        <div
+            [routerLink]="listItem.route"
+            routerLinkActive
+            #rla="routerLinkActive"
+            class="sub-menu-item"
+            cdkMenuItem
+            [cdkMenuTriggerFor]="listItem.children ? submenu : null"
+        >
+            <div class="list-item-title">{{ listItem.label }}</div>
+            @if (listItem.children) {
+                <mat-icon class="list-item-meta">arrow_right</mat-icon>
+            }
+        </div>
+        <ng-template #submenu>
+            @if (listItem.children) {
+                <app-submenu [navListItems]="listItem.children" [nestingLevel]="nestingLevel + 1"></app-submenu>
+            }
+        </ng-template>
+    }
+</div>

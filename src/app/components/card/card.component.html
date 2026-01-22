@@ -1,0 +1,31 @@
+<mat-card class="requirement-card" (click)="onCardClick()">
+    <mat-card-content class="card-content-column">
+        <div class="card-item date-item">
+            <div class="date-display">Opened on {{ date | date:'dd/MM/yyyy' }}</div>
+        </div>
+        <div class="card-item">
+            <mat-card-title class="custom-title">{{ title }}</mat-card-title>
+        </div>
+
+        <div class="card-item designation-item">
+            <mat-chip-set>
+                <mat-chip highlighted class="rounded-chip">
+                    <mat-icon matChipAvatar aria-hidden="true" class="designation-icon">{{ icon }}</mat-icon>
+                    <span class="designation-text mat-body-small">{{ designation }}</span>
+                </mat-chip>
+            </mat-chip-set>
+        </div>
+        
+        <div class="card-item profiles-item">
+            <div class="profiles-row">
+                <div class="profiles-count">
+                    <mat-icon matChipAvatar aria-hidden="true" class="profile-icon">person</mat-icon>
+                    {{ profiles }} Profiles uploaded
+                </div>
+                <div *ngIf="isClosedRequirement" class="closed-date mat-body-small">
+                    Closed date {{ closedDate }}
+                </div>
+            </div>
+        </div>
+    </mat-card-content>
+</mat-card>

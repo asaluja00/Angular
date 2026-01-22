@@ -1,0 +1,32 @@
+.mt-2 {
+    margin-top: 5px;
+}
+
+.card-layout {
+    display: grid;
+    // grid-template-columns: 375px 375px 375px;
+    grid-template-columns: repeat(auto-fit, minmax(392px, 1fr));
+    gap: 24px;
+}
+
+.main-content {
+    padding: 16px;
+}
+
+// .tab-content {
+//     padding: 20px 0;
+// }
+
+// Custom styling for tabs to not occupy full width
+// .custom-tabs {
+//     ::ng-deep {
+//         .mat-mdc-tab-header {
+//             width: fit-content;
+//             min-width: 300px;
+            
+//             .mat-mdc-tab-labels {
+//                 justify-content: flex-start;
+//             }
+//         }
+//     }
+// }

@@ -1,0 +1,352 @@
+/* You can add global styles to this file, and also import other style files */
+@use '@angular/material' as mat;
+@use './app/themes/red-theme.scss' as red-theme;
+@use './app/themes/green-theme.scss' as green-theme;
+@use './app/themes/orange-theme.scss' as orange-theme;
+@use './app/themes/purple-theme.scss' as purple-theme;
+@use './app/themes/yellow-theme.scss' as yellow-theme;
+@use './app/themes/pink-theme.scss' as pink-theme;
+@use './app/themes/teal-theme.scss' as teal-theme;
+@use './app/themes/brown-theme.scss' as brown-theme;
+@use './app/components/dialogs/dialog-styles.scss';
+
+@include mat.core();
+
+@mixin my-sidenav-theme($theme) {
+	.sidenav {
+		background: mat.get-theme-color($theme, primary);
+		// background: #8341A3;
+		// background: linear-gradient(mat.get-theme-color($theme, primary, 10), mat.get-theme-color($theme, primary));
+		color: var(--sys-on-primary);
+		--mdc-list-list-item-leading-icon-color: var(--sys-on-primary);
+  		--mdc-list-list-item-label-text-color: var(--sys-on-primary);
+		--mdc-list-list-item-hover-label-text-color: var(--sys-on-primary);
+		--mdc-list-list-item-hover-leading-icon-color: var(--sys-on-primary);
+		--mdc-list-list-item-trailing-supporting-text-color: var(--sys-on-primary);
+
+		& .mat-mdc-nav-list .mat-mdc-list-item.mdc-list-item--activated {
+			--mdc-list-list-item-leading-icon-color: var(--sys-on-surface);
+  			--mdc-list-list-item-label-text-color: var(--sys-on-surface);
+			--mdc-list-list-item-hover-leading-icon-color: var(--sys-on-surface);
+			--mdc-list-list-item-hover-label-text-color: var(--sys-on-surface);
+		}
+	}
+}
+
+@mixin my-top-nav-theme($theme) {
+	.main-toolbar {
+		// background: color-mix(in srgb, var(--sys-primary) 72%, #000); // mat.get-theme-color($theme, primary);
+		// background: color-mix(in srgb, var(--sys-primary) 72%,#65337D);
+		background:#65337D;
+		color: var(--sys-on-primary);
+		--mdc-icon-button-icon-color: var(--sys-on-primary);
+	}
+}
+
+$light-theme: mat.define-theme(
+	(
+		color: (
+			theme-type: light,
+			primary: mat.$azure-palette,
+			use-system-variables: true,
+		)
+	)
+);
+$sidenav-theme: mat.define-theme((
+	color: (
+		theme-type: dark,
+		primary: mat.$azure-palette
+	)
+));
+$search-theme: mat.define-theme((density: (scale: -2),
+		));
+
+html {
+	// Apply the base theme at the root, so it will be inherited by the whole app.
+	@include mat.all-component-themes($light-theme);
+	@include mat.system-level-colors($light-theme);
+	@include mat.system-level-typography($light-theme);
+
+	@include my-sidenav-theme($light-theme);
+	@include my-top-nav-theme($light-theme);
+
+	@include mat.form-field-density(-3);
+}
+
+.red-theme {
+	@include mat.all-component-colors(red-theme.$light-theme);
+	@include mat.system-level-colors(red-theme.$light-theme);
+	@include mat.system-level-typography(red-theme.$light-theme);
+
+	@include my-sidenav-theme(red-theme.$light-theme);
+
+	// & mat-sidenav {
+	// 	// Override the colors to create a dark sidenav.
+	// 	@include mat.all-component-colors(red-theme.$dark-theme);
+	// }
+}
+
+.green-theme {
+	@include mat.all-component-colors(green-theme.$light-theme);
+	@include mat.system-level-colors(green-theme.$light-theme);
+	@include mat.system-level-typography(green-theme.$light-theme);
+
+	@include my-sidenav-theme(green-theme.$light-theme);
+
+	// & mat-sidenav {
+	// 	// Override the colors to create a dark sidenav.
+	// 	@include mat.all-component-colors(green-theme.$dark-theme);
+	// }
+}
+
+.teal-theme {
+	@include mat.all-component-colors(teal-theme.$light-theme);
+	@include mat.system-level-colors(teal-theme.$light-theme);
+	@include mat.system-level-typography(teal-theme.$light-theme);
+
+	@include my-sidenav-theme(teal-theme.$light-theme);
+
+	// & mat-sidenav {
+	// 	// Override the colors to create a dark sidenav.
+	// 	@include mat.all-component-colors(teal-theme.$dark-theme);
+	// }
+}
+
+.orange-theme {
+	@include mat.all-component-colors(orange-theme.$light-theme);
+	@include mat.system-level-colors(orange-theme.$light-theme);
+	@include mat.system-level-typography(orange-theme.$light-theme);
+
+	@include my-sidenav-theme(orange-theme.$light-theme);
+
+	// & mat-sidenav {
+	// 	// Override the colors to create a dark sidenav.
+	// 	@include mat.all-component-colors(orange-theme.$dark-theme);
+	// }
+}
+
+.yellow-theme {
+	@include mat.all-component-colors(yellow-theme.$light-theme);
+	@include mat.system-level-colors(yellow-theme.$light-theme);
+	@include mat.system-level-typography(yellow-theme.$light-theme);
+
+	@include my-sidenav-theme(yellow-theme.$light-theme);
+
+	// & mat-sidenav {
+	// 	// Override the colors to create a dark sidenav.
+	// 	@include mat.all-component-colors(yellow-theme.$dark-theme);
+	// }
+}
+
+.brown-theme {
+	@include mat.all-component-colors(brown-theme.$light-theme);
+	@include mat.system-level-colors(brown-theme.$light-theme);
+	@include mat.system-level-typography(brown-theme.$light-theme);
+
+	@include my-sidenav-theme(brown-theme.$light-theme);
+
+	// & mat-sidenav {
+	// 	// Override the colors to create a dark sidenav.
+	// 	@include mat.all-component-colors(brown-theme.$dark-theme);
+	// }
+}
+
+.pink-theme {
+	@include mat.all-component-colors(pink-theme.$light-theme);
+	@include mat.system-level-colors(pink-theme.$light-theme);
+	@include mat.system-level-typography(pink-theme.$light-theme);
+
+	@include my-sidenav-theme(pink-theme.$light-theme);
+
+	// & mat-sidenav {
+	// 	// Override the colors to create a dark sidenav.
+	// 	@include mat.all-component-colors(pink-theme.$dark-theme);
+	// }
+}
+
+.purple-theme {
+	@include mat.all-component-colors(purple-theme.$light-theme);
+	@include mat.system-level-colors(purple-theme.$light-theme);
+	@include mat.system-level-typography(purple-theme.$light-theme);
+
+	@include my-sidenav-theme(purple-theme.$light-theme);
+
+	// & mat-sidenav {
+	// 	// Override the colors to create a dark sidenav.
+	// 	@include mat.all-component-colors(purple-theme.$dark-theme);
+	// }
+}
+
+.main-toolbar {
+	// border-bottom: 1px solid #eee;
+
+	.global-input-search {
+		@include mat.form-field-density($search-theme);
+		--mdc-outlined-text-field-outline-width: 0px;
+		background-color: var(--sys-on-primary);// #21212114;
+		// background-color: #21212114;
+		border-radius: 4px;
+		// width: 350px;
+	}
+
+	.toolbar-container {
+		display: flex;
+		flex-grow: 1;
+		justify-content: space-between;
+		align-items: center;
+
+		.profile-menu-button {
+			// --mat-filled-button-horizontal-padding: 0;
+			// --mdc-filled-button-container-height: 40px;
+			min-width: 40px;
+			width: 40px;
+			height:40px;
+			border-radius: 50% !important;
+		}
+	}
+
+}
+
+html,
+body {
+	height: 100%;
+}
+
+body {
+	margin: 0;
+	font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.mat-drawer-inner-container {
+	scrollbar-gutter: stable;
+}
+
+.mat-drawer-inner-container::-webkit-scrollbar {
+	width: 5px;
+}
+
+.mat-drawer-inner-container::-webkit-scrollbar-track {}
+
+.mat-drawer-inner-container::-webkit-scrollbar-thumb {
+	background: #888;
+	border-radius: 50px;
+}
+
+.mat-drawer-inner-container::-webkit-scrollbar-thumb:hover {
+	background: #555;
+}
+
+// page content
+.main {
+	background: #fff;
+	border-radius: 8px;
+
+	.main-header {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: 8px 8px;
+		background: #FAFAFA;
+		border-bottom: 1px solid #E1E1E1;
+		border-top-right-radius: 12px;
+		border-top-left-radius: 12px;
+		height: 40px;
+		// border: 0.5px solid #EADDFF;
+	}
+
+	.main-content {
+		padding: 16px;
+	}
+}
+
+.footer {
+	text-align: center;
+	vertical-align: middle;
+	padding: 8px 16px 8px 16px;
+	// background-color: rgba(0, 0, 0, 0.87);
+	// color: #fff;
+}
+
+// custom table
+.app-table {
+
+	& tr:nth-child(odd) {
+		background-color: #F4F9FD;
+	}
+
+	& .app-table-row {
+		-moz-osx-font-smoothing: grayscale;
+		-webkit-font-smoothing: antialiased;
+		font-family: var(--mat-table-row-item-label-text-font, var(--mat-app-body-medium-font, Roboto, sans-serif));
+		line-height: var(--mat-table-row-item-label-text-line-height, var(--mat-app-body-medium-line-height));
+		font-size: var(--mat-table-row-item-label-text-size, var(--mat-app-body-medium-size, 14px));
+		font-weight: var(--mat-table-row-item-label-text-weight, var(--mat-app-body-medium-weight));
+		height: 48px; //var(--mat-table-row-item-container-height, 52px);
+		color: var(--mat-table-row-item-label-text-color, var(--mat-app-on-surface, rgba(0, 0, 0, 0.87)));
+
+		&:last-child .app-table-cell {
+			border-bottom: none;
+		}
+	}
+
+	& .app-table-cell {
+		--mat-table-row-item-outline-color: #E0E0E0;
+
+		border-bottom-color: var(--mat-table-row-item-outline-color, var(--mat-app-outline, #E4E7EC));
+		border-bottom-width: var(--mat-table-row-item-outline-width, 1px);
+		border-bottom-style: solid;
+		letter-spacing: var(--mat-table-row-item-label-text-tracking, var(--mat-app-body-medium-tracking));
+		line-height: inherit;
+		white-space: nowrap;
+		padding: 8px 16px;
+	}
+
+}
+
+// custom dialog
+.am-dialog-title {
+	height: var(--mat-toolbar-standard-height);
+	border-bottom: 1px solid #eee;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 0 16px;
+}
+
+.am-dialog-content {
+	padding: 16px;
+	flex: 1;
+	overflow-x: hidden;
+	overflow-y: auto;
+}
+
+.am-dialog-actions {
+	padding: 10px 16px;
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	gap: 8px;
+	border-top: 1px solid #eee;
+}
+
+// visitors info chip content styling
+.visitors__visitor-info-extended {
+
+    & .mdc-evolution-chip--with-avatar.mdc-evolution-chip--with-primary-graphic {
+        
+        & .mdc-evolution-chip__graphic {
+            padding-right: 4px;
+        }
+    }
+}
+::ng-deep .mdc-text-field--outlined .mdc-floating-label{
+	font-size: 30px;
+}
+
+// Custom snackbar styles
+.error-snackbar {
+  --mdc-snackbar-container-color: #f44336;
+  --mdc-snackbar-supporting-text-color: white;
+  --mat-snack-bar-button-color: white;
+}
+

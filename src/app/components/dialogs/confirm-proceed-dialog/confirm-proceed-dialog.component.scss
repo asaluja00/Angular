@@ -1,0 +1,68 @@
+.close-requirement-dialog {
+    min-width: 320px;
+    max-width: 400px;
+    border-radius: 8px;
+    overflow: hidden;
+    padding: 0;
+    box-shadow: none;
+    
+    .mat-mdc-card-header {
+        padding: 16px 16px 0;
+        justify-content: center;
+        display: flex;
+    }
+    
+    ::ng-deep .mat-mdc-card-header-text {
+        margin: 0; // Remove default margin
+    }
+    
+    .dialog-title {
+        margin: 0;
+        color: #000;
+        text-align: center;
+    }
+    
+    .dialog-content {
+        padding: 16px 24px;
+        
+        p {
+            margin: 0;
+            line-height: 1.5;
+            text-align: center;
+        }
+        
+        .dialog-text {
+            color: rgba(0, 0, 0, 0.7);
+        }
+    }
+    
+    .mat-mdc-card-actions {
+        padding: 8px 16px 16px;
+        margin: 0;
+    }
+    
+    .dialog-actions {
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+        
+        button {
+            min-width: 80px;
+            padding: 0 16px;
+            height: 36px;
+            line-height: 36px;
+            border-radius: 20px; /* Increased border radius for rounded buttons */
+        }
+        
+        .cancel-btn {
+            color: rgba(0, 0, 0, 0.6);
+            border-radius: 20px;
+        }
+        
+        .confirm-btn {
+            background-color: #9c27b0; /* Purple color matching the confirmation button in the image */
+            border-radius: 20px;
+            color:white;
+        }
+    }
+}

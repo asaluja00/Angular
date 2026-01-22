@@ -1,0 +1,83 @@
+  <div class="fixed-header header-bg">
+    <span class="custom-title">View Requirement &amp; Job Details</span>
+     <button mat-icon-button class="styled-close-btn" (click)="onCloseClick()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+<div class="requirement-details-container">
+  <div class="details-scroll-area">
+    <div class="section">
+    <div class="section-title">REQUIREMENT TITLE</div>
+    <div class="section-value mat-body-medium">
+      {{ requirementDetails.requirement_title }}
+      <div class="chip-row">
+        <mat-chip highlighted>{{ requirementDetails.job_role }}</mat-chip>
+        <mat-chip highlighted>Resume shortlist % <span>{{ requirementDetails.resume_shortlisting_percent }}</span></mat-chip>
+        <mat-chip highlighted>Interview shortlist % <span>{{ requirementDetails.interview_passing_percent }}</span></mat-chip>
+      </div>
+    </div>
+  </div>
+  <div class="section">
+    <div class="section-title mat-title-small">JOB DESCRIPTION</div>
+    <div class="section-value mat-body-medium job-description">
+      {{ requirementDetails.job_description }}
+    </div>
+  </div>
+  <div class="section">
+    <div class="section-title mat-title-small">ROLES & RESPONSIBILITIES</div>
+    <div class="section-value mat-body-medium">
+      <ul>
+        <li *ngFor="let line of requirementDetails.roles_responsiblities?.split('\n')">{{ line }}</li>
+      </ul>
+    </div>
+  </div>
+  <div class="section">
+    <div class="section-title mat-title-small">WORK EXPERIENCE</div>
+    <div class="section-value" style="display: flex; align-items: center; justify-content: space-between;">
+      <span>{{ requirementDetails.work_experience }}</span>
+      <mat-chip highlighted class="weightage-chip">Weightage <span class="chip-value">{{ requirementDetails.weights?.['Work Experience'] }}</span></mat-chip>
+    </div>
+  </div>
+  <div class="section">
+    <div class="section-title mat-title-small">MANDATORY SKILLS</div>
+    <div class="section-value mat-body-medium" style="display: flex; align-items: flex-start; justify-content: space-between;">
+      <ul style="margin: 0;">
+        <li *ngFor="let skill of requirementDetails.mandatory_skills?.split('\n')">
+          <span>{{ skill }}</span>
+        </li>
+      </ul>
+      <mat-chip highlighted class="weightage-chip">Weightage <span class="chip-value">{{ requirementDetails.weights?.['Mandatory Skills'] }}</span></mat-chip>
+    </div>
+  </div>
+  <div class="section">
+    <div class="section-title mat-title-small">OPTIONAL SKILLS</div>
+    <div class="section-value mat-body-medium" style="display: flex; align-items: flex-start; justify-content: space-between;">
+      <ul style="margin: 0;">
+        <li *ngFor="let skill of requirementDetails.optional_skill?.split('\n')">
+          <span>{{ skill }}</span>
+        </li>
+      </ul>
+      <mat-chip highlighted class="weightage-chip">Weightage <span class="chip-value">{{ requirementDetails.weights?.['Optional Skills'] }}</span></mat-chip>
+    </div>
+  </div>
+  <div class="section">
+    <div class="section-title mat-title-small">EDUCATION</div>
+    <div class="section-value mat-body-medium" style="display: flex; align-items: flex-start; justify-content: space-between;">
+      <ul style="margin: 0;">
+        <li *ngFor="let edu of requirementDetails.education?.split('\n')">
+          <span>{{ edu }}</span>
+        </li>
+      </ul>
+      <mat-chip highlighted class="weightage-chip">Weightage <span class="chip-value">{{ requirementDetails.weights?.['Education Weightage'] }}</span></mat-chip>
+    </div>
+  </div>
+  <div class="section">
+    <div class="section-title mat-title-small">CERTIFICATIONS</div>
+    <div class="section-value mat-body-medium" style="display: flex; align-items: center; justify-content: space-between;">
+      <span>{{ requirementDetails.certifications }}</span>
+      <mat-chip highlighted  class="weightage-chip">Weightage <span class="chip-value">{{ requirementDetails.weights?.['Certification Weightage'] }}</span></mat-chip>
+    </div>
+  </div>
+  </div>
+</div>

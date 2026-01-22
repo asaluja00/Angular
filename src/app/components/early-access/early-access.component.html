@@ -1,0 +1,50 @@
+
+  <div class="ai-interview-header">
+  <img src="assets/images/new-logo.png" style="background-color: transparent;" alt="logo"
+				width="215">
+ <div class="profile-menu">
+         <button class="header-btn"  (click)="toggleDropdown()">
+            <p  class="material-icons"> {{candidateInitials}} </p> 
+          </button>
+  <div class="dropdown" [class.show]="isDropdownOpen">
+      <p class="mat-title-medium">{{candidateName}}</p>
+      <hr />
+      <!-- <button class="logout-btn">Log out</button> -->
+    </div>
+</div>
+</div>
+
+  <div class="early-access-container">
+    <mat-card class="early-access-card">
+      <mat-card-content>
+        <p class="mat-title-large">Early Access Detected</p>
+        <p class="description mat-body-large">Thank you for your interest. This interview session will commence at your scheduled time.</p>
+
+        <div class="details-container">
+          <div class="detail-row">
+            <mat-icon>account_circle</mat-icon>
+            <span class="mat-body-medium" style="margin-top:6px ;">Candidate Name: {{candidateName}}</span>
+          </div>
+          <div class="detail-row">
+            <mat-icon>work</mat-icon>
+            <span class="mat-body-medium">Job Role: {{jobRole}}</span>
+          </div>
+          <div class="detail-row">
+            <mat-icon>schedule</mat-icon>
+            <span class="mat-body-medium">Scheduled Time: {{scheduledTime | date:'EEEE, MMMM d\'th\' yyyy \'at\' h:mm a (\'IST\')'}} </span>
+          </div>
+        </div>
+        <!-- <div class="button-container">
+          <button mat-stroked-button color="primary" (click)="onCancel()">Cancel</button>
+        <button mat-flat-button color="primary" (click)="onBegin()" [disabled]="!isInterviewTime()" [ngClass]="{'disabled-begin-btn': !isInterviewTime()}">Let's Begin</button>
+        </div> -->
+                <div class="mat-body-large" style="margin: 16px 0; color: #4D4D4F;">
+          At your scheduled interview time, please <b>refresh this page</b> or <b>click the link in your email</b> to proceed.
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div class="footer mat-label-large">&copy; 2025 Tech Mahindra Limited</div>
+  <!-- <div class="early-access-blackbar"></div> -->
+
+

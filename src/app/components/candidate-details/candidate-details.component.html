@@ -1,0 +1,78 @@
+<div>
+    <div class="candidates-list">
+    <div class="candidate-card" *ngFor="let candidate of filteredCandidates"
+            (click)="selectCandidate(candidate)">
+            <div class="candidate-info-row">
+                <mat-checkbox class="candidate-checkbox" *ngIf="selectionMode" [checked]="candidate.selected"
+                    (click)="$event.stopPropagation()"
+                    (change)="toggleCandidateSelection(candidate, $event)"></mat-checkbox>
+                <div class="candidate-initials" [ngClass]="{
+                    'selected': candidate.selected && selectionMode,
+                    'color-1': ['A','B','C','D'].includes(getCandidateInitials(candidate).charAt(0)),
+                    'color-2': ['E','F','G','H'].includes(getCandidateInitials(candidate).charAt(0)),
+                    'color-3': ['I','J','K','L'].includes(getCandidateInitials(candidate).charAt(0)),
+                    'color-4': ['M','N','O','P'].includes(getCandidateInitials(candidate).charAt(0)),
+                    'color-5': ['Q','R','S','T'].includes(getCandidateInitials(candidate).charAt(0)),
+                    'color-6': ['U','V','W','X','Y','Z'].includes(getCandidateInitials(candidate).charAt(0))
+                  }">
+                    {{ getCandidateInitials(candidate) }}
+                </div>
+                <div class="candidate-details-wrapper">
+                    <div class="candidate-info">
+                        <p class="candidate-name">{{ getCandidateName(candidate) }}</p>
+                        <!-- <p class ="candidate-position">{{ candidate.position }}</p> -->
+                        <p class="candidate-position">{{ jobRole }}</p>
+                    </div>
+                    <div class="candidate-actions">
+                           <!-- New upload button -->
+                        <button mat-icon-button [matTooltip]="'Reupload resume'" (click)="fileInput.click()">
+                            <mat-icon>upload</mat-icon>
+                            <input type="file" #fileInput style="display:none" (change)="uploadProfile(candidate, $event)" accept=".pdf,.doc,.docx,.jpg,.png" />
+                        </button>
+                        <button mat-icon-button
+                            [matTooltip]="candidate.profileAnalyzed ? 'Profile Analyzed' : (candidate.analyzing ? 'Analyzing...' : 'Analyze profile')"
+                            (click)="analyzeProfile($event, candidate)" [disabled]="candidate.analyzing">
+                            <ng-container *ngIf="!candidate.analyzing">
+                                <mat-icon *ngIf="candidate.profileAnalyzed; else showVitalSigns">productivity</mat-icon>
+                                <ng-template #showVitalSigns>
+                                    <mat-icon>vital_signs</mat-icon>
+                                </ng-template>
+                            </ng-container>
+                            <mat-progress-spinner *ngIf="candidate.analyzing" diameter="20" mode="indeterminate"
+                                color="primary">
+                            </mat-progress-spinner>
+                        </button>
+                        <button mat-icon-button
+                            [matTooltip]="candidate.emailSent ? 'E-mail already sent' : 'Send Interview Invite'"
+                            (click)="sendEmail($event, candidate)" [disabled]="candidate.emailSent">
+                            <mat-icon>{{ candidate.emailSent ? 'mark_email_read' : 'forward_to_inbox' }}</mat-icon>
+                        </button>
+                     
+                    </div>
+                </div>
+
+            </div>
+            <div *ngIf="candidate.final_score_value != null || candidate.overall_score != null" class="match-score">
+                <div class="score-header">
+                    <span class="score-label">Match Score</span>
+                    <span class="score-value">{{candidate.final_score_value || candidate.overall_score}}%</span>
+                </div>
+                <div class="progress-container" [ngClass]="getScoreColor(candidate)">
+                    <mat-progress-bar
+                        mode="determinate"
+                        [value]="candidate.final_score_value ?? candidate.overall_score ?? 0">
+                    </mat-progress-bar>
+                </div>
+            </div>
+            <hr class="candidate-divider">
+        </div>
+    </div>
+
+    <div class="empty-state" *ngIf="candidates.length === 0">
+        <div class="empty-icon">
+            <mat-icon>search</mat-icon>
+        </div>
+        <p class="empty-text">No data found</p>
+        <!-- <p class="empty-subtext">Nothing is selected</p> -->
+    </div>
+</div>

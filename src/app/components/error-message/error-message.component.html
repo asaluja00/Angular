@@ -1,0 +1,18 @@
+<div class="error-message-container">
+  <mat-icon class="error-icon">error_outline</mat-icon>
+  <ng-container [ngSwitch]="reason">
+    <ng-container *ngSwitchCase="'expired'">
+      <h2>Link Expired</h2>
+      <p>Your interview link has expired.<br>Please contact your HR team for further assistance.</p>
+    </ng-container>
+    <ng-container *ngSwitchCase="'completed'">
+      <h2>Interview Completed</h2>
+      <p>Your interview is completed.<br>Our HR team will connect with you soon.</p>
+    </ng-container>
+    <ng-container *ngSwitchDefault>
+      <h2>Error</h2>
+      <p>Something went wrong.<br>Please contact support.</p>
+    </ng-container>
+  </ng-container>
+</div>
+<div class="footer mat-label-large">&copy; 2025 Tech Mahindra Limited</div>

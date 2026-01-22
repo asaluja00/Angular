@@ -1,0 +1,513 @@
+// Ensure color classes apply globally to .candidate-initials
+.candidate-initials.color-1 { background: #e5d6f3; color: #4B2566; }
+.candidate-initials.color-2 { background: #fbe3f0; color: #b0004b; }
+.candidate-initials.color-3 { background: #fff3d6; color: #b47a00; }
+.candidate-initials.color-4 { background: #e3e0ff; color: #3a2e8c; }
+.candidate-initials.color-5 { background: #d6f3f3; color: #006666; }
+.candidate-initials.color-6 { background: #d6fbe3; color: #1b5e20; }
+// Ensure interview and profile score values look identical
+.thick-score {
+  font-size: 20px !important;
+  font-weight: 500 !important;
+  color: #28a745 !important;
+  background-color: #EAEAEA !important;
+  border-radius: 12px;
+  display: inline-block;
+  min-width: 40px;
+  text-align: center;
+}
+.score-label-value {
+ display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  row-gap: 8px; /* or use margin-bottom on .score-label */
+}
+.candidate-detail-container {
+    // padding: 16px;
+    
+    .candidate-card {
+        margin-bottom: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        background-color: #FFFFFF;
+        
+        .card-layout {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .candidate-info {
+            display: flex;
+            // align-items: center;
+            flex: 1; /* Takes available space but allows profile score to have its specified width */
+            justify-content: space-between;
+            
+            .candidate-avatar {
+                width: 60px;
+                height: 60px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 24px;
+                font-weight: 500;
+                margin-right: 16px;
+                // Remove default background and color so .candidate-initials.color-* takes precedence
+
+                &.color-1 { background: #e5d6f3; color: #4B2566; }
+                &.color-2 { background: #fbe3f0; color: #b0004b; }
+                &.color-3 { background: #fff3d6; color: #b47a00; }
+                &.color-4 { background: #e3e0ff; color: #3a2e8c; }
+                &.color-5 { background: #d6f3f3; color: #006666; }
+                &.color-6 { background: #d6fbe3; color: #1b5e20; }
+            }
+            
+            .candidate-basic-info {
+                display: flex;
+                align-items: center;
+                
+                .candidate-name {
+                    margin: 0 0 2px 0;
+                    // font-size: 20px;
+                    font-weight: 500;
+                    color: #333;
+                }
+                
+                .position {
+                    margin: 0;
+                    font-size: 14px;
+                    color: #666;
+                }
+            }
+        }
+        
+        .profile-score-container {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex: 0.23;
+            // flex: 0 0 auto;
+            // min-width: 131px; /* Slightly increased minimum width */
+            
+            .score-section {
+                text-align: center;
+                 background-color: #EAEAEA;
+                border-radius: 12px;
+                flex: 2.6; /* Base flex value */
+                padding: 5px;
+                    padding: 9px;
+                    height: 40px;
+                
+                .score-label {
+                    font-size: 11px;
+                    color: #666;
+                    font-weight: 500;
+                }
+                
+                .score-value {
+                    font-size: 13px;
+                    font-weight: 500;
+                    color: #28a745; // Green color for good score
+                    
+                    &.pending {
+                        color: #ffa500; // Orange color for pending
+                        font-size: 10px;
+                    }
+                }
+                
+                &.interview-section {
+                    background-color: #EAEAEA;
+                    border-radius: 12px;
+                    flex: 3.1; /* Make the interview section larger (3/5 of the space) */
+                    
+                    .score-value {
+                        background-color: #EAEAEA;
+                    }
+                }
+            }
+        }
+    }
+    
+    .detail-header {
+        margin-bottom: 24px;
+        
+        h2 {
+            margin: 0;
+            font-size: 20px;
+            font-weight: 500;
+            color: #333;
+        }
+    }
+    
+    .stack-cards-container {
+        display: flex;
+        gap: 16px;
+        margin-bottom: 16px;
+        
+        .stack-card {
+            flex: 1;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            background-color: #FFFFFF;
+            
+            .stack-header {
+                display: flex;
+                align-items: center;
+                margin-bottom: 16px;
+                background-color: #EAEAEA;
+                border-radius: 4px;
+                height: 32px;
+                .stack-icon {
+                    color: #7d3c98;
+                   padding:0 5px;
+                }
+                                h4 {
+                                    margin: 0;
+                                    font-size: 14px;
+                                    color: #898989;
+                                    font-weight: 500;
+                                }
+                                }
+            
+            .stack-content {
+                .stack-item {
+                    display: flex;
+                    justify-content: space-between;
+                    margin-bottom: 8px;
+                    
+                    .stack-label {
+                        font-size: 14px;
+                        color: #666;
+                    }
+                    
+                    .stack-value {
+                        font-size: 14px;
+                        font-weight: 500;
+                        color: #333;
+                    }
+                }
+                
+                .interview-pending {
+                    text-align: center;
+                    padding: 20px 0;
+                    color: #74777F;
+                }
+            }
+        }
+    }
+
+    .skills-card, .experience-card {
+        margin-bottom: 16px;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        background-color: #FFFFFF;
+        
+        .skills-header, .experience-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 16px;
+             background-color: #EAEAEA;
+            border-radius: 4px;
+            mat-icon {
+                color: #7d3c98;
+                padding: 0 5px;
+                font-size: 20px;
+                height: 20px;
+                width: 20px;
+            }
+            
+            h4 {
+                margin: 0;
+                font-size: 16px;
+                font-weight: 500;
+                color: #333;
+            }
+        }
+    }
+    
+    .skills-content {
+        .skills-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            
+            ::ng-deep .mdc-evolution-chip {
+                background-color: #EAEAEA !important;
+                color: rgba(0, 0, 0, 0.87);
+                border-radius: 16px;
+                padding: 4px 8px;
+                min-height: 28px;
+                height: auto;
+                
+                .mdc-evolution-chip__text-label {
+                    font-size: 14px;
+                    font-weight: normal;
+                    padding: 0 4px;
+                }
+                
+                // Remove default outline and shadow
+                &:hover, &:focus {
+                    box-shadow: none !important;
+                }
+            }
+        }
+        
+        margin-top: 12px;
+        
+        .skills-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            
+            .skill-pill {
+                background-color: #EAEAEA;
+                padding: 6px 16px;
+                border-radius: 16px;
+                font-size: 14px;
+                // color: rgba(0, 0, 0, 0.87);
+                color:#8341A3;
+                display: inline-flex;
+                align-items: center;
+                height: 28px;
+            }
+        }
+    }
+
+    .experience-content {
+        font-size: 14px;
+        color: #333;
+        line-height: 1.5;
+        
+        p {
+            margin-bottom: 10px;
+            
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+        
+        strong {
+            font-weight: 500;
+            color: #555;
+        }
+        
+        .projects-section {
+            margin-top: 20px;
+            border-top: 1px solid #eee;
+            padding-top: 16px;
+            
+            .projects-header {
+                display: flex;
+                align-items: center;
+                margin-bottom: 16px;
+                background-color: #EAEAEA;
+                border-radius: 4px;
+                
+                .projects-icon {
+                    color: #7d3c98;
+                    padding: 0 5px;
+                    font-size: 20px;
+                    height: 20px;
+                    width: 20px;
+                }
+                
+                h4 {
+                   font-size: 16px;
+                    font-weight: 500;
+                      margin: 0;
+                }
+            }
+            
+            .projects-title {
+                margin: 0;
+                font-size: 15px;
+                font-weight: 500;
+                color: #333;
+                
+                &:before {
+                    content: '';
+                    display: inline-block;
+                    width: 10px;
+                    height: 10px;
+                    background-color: #7d3c98;
+                    border-radius: 50%;
+                    margin-right: 8px;
+                }
+            }
+            
+            .projects-list {
+                list-style-type: none;
+                padding: 0;
+                margin: 0;
+                
+                .project-item {
+                    margin-bottom: 16px;
+                    padding-left: 0;
+                    position: relative;
+                    
+                    /* Removed bullet point
+                    &:before {
+                        content: '•';
+                        position: absolute;
+                        left: 5px;
+                        color: #7d3c98;
+                    } */
+                    
+                    strong {
+                        display: block;
+                        margin-bottom: 4px;
+                        color: #333;
+                    }
+                    
+                    p {
+                        margin: 0;
+                        color: #666;
+                        line-height: 1.4;
+                    }
+                }
+            }
+        }
+    }
+    
+    .profile-content {
+        .profile-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 24px;
+            
+            .candidate-avatar {
+                width: 64px;
+                height: 64px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 24px;
+                font-weight: 500;
+                color: #fff;
+                background-color: #a278b5;
+                margin-right: 16px;
+            }
+            
+            .candidate-basic-info {
+                h3 {
+                    margin: 0 0 4px 0;
+                    font-size: 18px;
+                    font-weight: 500;
+                }
+                
+                .position {
+                    margin: 0;
+                    color: #666;
+                    font-size: 14px;
+                }
+            }
+        }
+        
+        .profile-details {
+            .detail-section {
+                margin-bottom: 24px;
+                
+                h4 {
+                    margin: 0 0 12px 0;
+                    font-size: 16px;
+                    font-weight: 500;
+                    color: #555;
+                }
+                
+                .skills-list {
+                    display: flex;
+                    flex-wrap: wrap;
+                    gap: 8px;
+                    
+                    .skill-tag {
+                        background-color: #f0f0f0;
+                        padding: 4px 12px;
+                        border-radius: 16px;
+                        font-size: 14px;
+                        color: #555;
+                    }
+                }
+                
+                p {
+                    margin: 0;
+                    line-height: 1.5;
+                    color: #333;
+                }
+            }
+        }
+    }
+}
+.candidate-pills-row {
+    display: flex;
+    gap: 12px;
+    margin-top: 10px;
+}
+
+.candidate-pill {
+    display: flex;
+    align-items: center;
+    background: #EAEAEA;
+    color: #333;
+    border-radius: 16px;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 4px 16px 4px 10px;
+    height: 32px;
+    line-height: 1;
+    box-shadow: none;
+    letter-spacing: 0.1px;
+}
+
+.pill-icon {
+    font-size: 18px;
+    // margin-right: 6px;
+    color: #7d3c98;
+    padding: 4px 0 0 0;
+}
+.edit-email-btn {
+  margin-left: 8px;
+  vertical-align: middle;
+  color: #8341A3;
+  background: #f5f5fa;
+//   border-radius: 50%;
+  transition: background 0.2s, color 0.2s;
+  cursor: pointer;
+}
+.edit-email-btn:hover {
+  background: #e0e0e0;
+  color: #5e2d91;
+}
+.save-email-btn {
+  margin-left: 4px;
+//   color: #388e3c;
+//   background: #e8f5e9;
+//   border-radius: 50%;
+  transition: background 0.2s, color 0.2s;
+  cursor: pointer;
+}
+.save-email-btn:hover {
+  background: #c8e6c9;
+  color: #1b5e20;
+}
+.cancel-email-btn {
+  margin-left: 4px;
+//   color: #d32f2f;
+//   background: #ffebee;
+//   border-radius: 50%;
+  transition: background 0.2s, color 0.2s;
+  cursor: pointer;
+}
+.cancel-email-btn:hover {
+  background: #ffcdd2;
+  color: #b71c1c;
+}
+.candidate-detail-container,
+.candidate-card,
+.mat-card-content {
+  overflow: visible !important;
+}
+.cdk-overlay-container, .mat-tooltip {
+  z-index: 9999 !important;
+}

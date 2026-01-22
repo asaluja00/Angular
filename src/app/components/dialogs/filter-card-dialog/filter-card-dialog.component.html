@@ -1,0 +1,62 @@
+<div class="filter-card styled-filter-card">
+  <div class="filter-header styled-filter-header">
+    <span class="styled-filter-title mat-title-medium">Filter</span>
+    <button mat-icon-button class="styled-close-btn" (click)="onCancel()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+  <div class="filter-body styled-filter-body" style="overflow-x: hidden;">
+    <!-- <div class="styled-section"> -->
+      <span class="styled-section-label mat-label-medium">SEARCH BY KEYWORD</span>
+      <mat-form-field appearance="outline" class="styled-search-field" style="width:229px;">
+        <mat-label>Search skills or name</mat-label>
+        <input matInput [(ngModel)]="filterKeyword" (ngModelChange)="onFilterChange()" placeholder="Search skills or name" />
+        <mat-icon matPrefix>search</mat-icon>
+      </mat-form-field>
+    <!-- </div> -->
+    <div class="styled-section-list" style="width:100%; display:flex; flex-direction:column; gap:16px; overflow-x: hidden;">
+      <!-- PROFILE ANALYSIS Section -->
+      <div class="styled-options-group">
+        <span class="styled-options-label mat-title-small">PROFILE ANALYSIS</span>
+        <mat-radio-group [(ngModel)]="profileAnalysis" (change)="onFilterChange()" class="styled-radio-group" style="display: flex; flex-direction: column; gap: 8px;">
+          <mat-radio-button value="all">View all</mat-radio-button>
+          <mat-radio-button value="done">Profile analysis done</mat-radio-button>
+          <mat-radio-button value="notdone">Profile analysis not done</mat-radio-button>
+        </mat-radio-group>
+      </div>
+
+      <!-- PROFILE SCORE RANGE Section -->
+      <div class="styled-slider-group">
+        <span class="styled-slider-label mat-label-medium">PROFILE SCORE RANGE</span>
+        <span class="styled-slider-value mat-title-small">{{profileScoreMin}}% to 100%</span>
+        <mat-slider min="0" max="100" step="1" color="primary">
+          <input matSliderThumb [(ngModel)]="profileScoreMin" />
+        </mat-slider>
+      </div>
+
+      <!-- INTERVIEW INVITE Section -->
+      <div class="styled-options-group">
+        <span class="styled-options-label mat-title-small">INTERVIEW INVITE</span>
+        <mat-radio-group [(ngModel)]="interviewInviteStatus" (change)="onFilterChange()" class="styled-radio-group" style="display: flex; flex-direction: column; gap: 8px;">
+          <mat-radio-button value="all">View all</mat-radio-button>
+          <mat-radio-button value="sent">Interview invite sent</mat-radio-button>
+          <mat-radio-button value="notsent">Interview invite not sent</mat-radio-button>
+        </mat-radio-group>
+      </div>
+
+      <!-- INTERVIEW SCORE RANGE Section -->
+      <div class="styled-slider-group">
+        <span class="styled-slider-label mat-label-medium">INTERVIEW SCORE RANGE</span>
+        <span class="styled-slider-value mat-title-small">{{interviewScoreMin}}% to 100%</span>
+        <mat-slider min="0" max="100" step="1" color="primary">
+          <input matSliderThumb [(ngModel)]="interviewScoreMin" (ngModelChange)="onFilterChange()" />
+        </mat-slider>
+      </div>
+    </div>
+  </div>
+  <div class="filter-footer styled-filter-footer static-footer" style="position: sticky; bottom: 0; background: #FEFBFF; box-shadow: 0 -2px 8px rgba(0,0,0,0.04); padding: 16px 24px; display: flex; gap: 16px; justify-content: flex-end; z-index: 2;">
+  <button mat-stroked-button class="styled-cancel-btn" (click)="onReset()" [ngClass]="{'enabled-reset': isAnyFilterSelected()}" [disabled]="!isAnyFilterSelected()">Reset</button>
+    <button mat-flat-button color="primary" class="styled-apply-btn" (click)="onApply()" [disabled]="!isAnyFilterSelected()">Apply</button>
+  </div>
+  <!-- Removed duplicate footer buttons for cleaner layout -->
+</div>

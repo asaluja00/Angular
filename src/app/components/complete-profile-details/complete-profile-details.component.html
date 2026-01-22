@@ -1,0 +1,214 @@
+<div class="candidate-detail-container" *ngIf="candidate">
+    <mat-card class="candidate-card">
+        <mat-card-content>
+            <!-- <div class="card-layout"> -->
+            <!-- Left side - Candidate info -->
+            <div class="candidate-info">
+                <div class="candidate-basic-info">
+                    <span class="candidate-avatar candidate-initials"
+                      [ngClass]="{
+                        'color-1': ['A','B','C','D'].includes(getCandidateInitials(candidate).charAt(0)),
+                        'color-2': ['E','F','G','H'].includes(getCandidateInitials(candidate).charAt(0)),
+                        'color-3': ['I','J','K','L'].includes(getCandidateInitials(candidate).charAt(0)),
+                        'color-4': ['M','N','O','P'].includes(getCandidateInitials(candidate).charAt(0)),
+                        'color-5': ['Q','R','S','T'].includes(getCandidateInitials(candidate).charAt(0)),
+                        'color-6': ['U','V','W','X','Y','Z'].includes(getCandidateInitials(candidate).charAt(0))
+                      }">
+                      {{ getCandidateInitials(candidate) }}
+                    </span>
+                    <div>
+                        <p class="candidate-name mat-title-medium">{{ getCandidateName(candidate) }}</p>
+                        <!-- <p class="position">{{ candidate.position }}</p> -->
+                           <p class="position">
+                              <ng-container *ngIf="!editingEmail; else editEmailField">
+                                {{ getCandidateEmail(candidate) }}
+                                <button mat-icon-button class="edit-email-btn" (click)="startEditEmail()" matTooltip="Edit Email" matTooltipPosition="above">
+                                  <mat-icon>edit</mat-icon>
+                                </button>
+                              </ng-container>
+                              <ng-template #editEmailField>
+                                <mat-form-field appearance="outline" class="edit-email-field">
+                                  <input matInput [(ngModel)]="editedEmail" (keydown.enter)="saveEmail()" />
+                                </mat-form-field>
+                                <button mat-icon-button color="primary" (click)="saveEmail()" matTooltip="Save Email" matTooltipPosition="above" class="save-email-btn">
+                                  <mat-icon>check</mat-icon>
+                                </button>
+                                <button mat-icon-button color="warn" (click)="cancelEditEmail()" matTooltip="Cancel" matTooltipPosition="above" class="cancel-email-btn">
+                                  <mat-icon>close</mat-icon>
+                                </button>
+                              </ng-template>
+                            </p>
+                         <!-- <p class="position">Project Analyst</p> -->
+                    </div>
+
+
+
+                </div>
+                <div class="profile-score-container">
+                    <!-- <div class="score-section"
+                        [ngStyle]="candidate.profileAnalyzed ? { 'background-color': (getProfileScore() > 50 ? '#C6FFC3' : '#FFB2B2') } : {}">
+                        <div class="score-label">Profile</div>
+                        <div class="score-value">
+                            <ng-container *ngIf="candidate.profileAnalyzed; else profilePending">
+                                {{ candidate.final_score_value || candidate.overall_score }}%
+                            </ng-container>
+                            <ng-template #profilePending><span style="color: #4D4D4F">-</span></ng-template>
+                        </div>
+                    </div> -->
+                    <div class="score-section"
+     [ngStyle]="candidate.profileAnalyzed ? { 'background-color': (getProfileScore() > 50 ? '#C6FFC3' : '#FFB2B2') } : {}">
+  <div class="score-label-value">
+    <div class="score-label">Profile</div>
+    <div class="score-value">
+      <ng-container *ngIf="candidate.profileAnalyzed; else profilePending">
+        {{ candidate.final_score_value || candidate.overall_score }}%
+      </ng-container>
+      <ng-template #profilePending><span style="color: #4D4D4F">-</span></ng-template>
+    </div>
+  </div>
+</div>
+                    <div class="score-section interview-section">
+                        <div class="score-label">Interview</div>
+                        <div class="score-value thick-score" [ngClass]="{'pending': !candidate.interviewScore}">
+                            <ng-container
+                                *ngIf="candidate.interviewScore !== undefined && candidate.interviewScore !== null; else interviewPending">
+                                {{ candidate.interviewScore }}
+                            </ng-container>
+                            <ng-template #interviewPending><span style="color: #4D4D4F">-</span></ng-template>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Right side - Profile score -->
+            <div class="candidate-pills-row">
+                <span class="candidate-pill">
+                    <mat-icon matChipAvatar class="pill-icon">business_center</mat-icon>
+                    {{ getExperienceInYears(candidate.resume_rel_info?.experience_months) }}
+                </span>
+                <span class="candidate-pill">
+                    <mat-icon matChipAvatar class="pill-icon">mail</mat-icon>
+                    0 delivered
+                </span>
+            </div>
+
+
+            <!-- </div> -->
+        </mat-card-content>
+    </mat-card>
+
+    <!-- Stack cards container -->
+    <div class="stack-cards-container">
+        <!-- Profile Stacks Card -->
+        <mat-card class="stack-card">
+            <mat-card-content>
+                <div class="stack-header">
+                    <mat-icon class="stack-icon">bar_chart</mat-icon>
+                    <h4>Profile Stacks</h4>
+                </div>
+                <div class="stack-content">
+                    <ng-container *ngIf="candidate.profileAnalyzed; else pendingAnalysis">
+                        <div class="stack-item">
+                            <div class="stack-label">Qualification Match</div>
+                            <div class="stack-value">{{ candidate.qualification_score | number:'1.2-2'}}</div>
+                        </div>
+                        <div class="stack-item">
+                            <div class="stack-label">Work Experience</div>
+                            <div class="stack-value">{{ (candidate.work_exp_score || candidate.experience_score) | number:'1.2-2' }}</div>
+                        </div>
+                        <div class="stack-item">
+                            <div class="stack-label">Skills Required</div>
+                            <div class="stack-value">{{ candidate.skills_score | number:'1.2-2' }}</div>
+                        </div>
+                    </ng-container>
+                    <ng-template #pendingAnalysis>
+                        <div class="interview-pending mat-body-small">Analysis Pending</div>
+                    </ng-template>
+                </div>
+            </mat-card-content>
+        </mat-card>
+
+        <!-- Interview Stacks Card -->
+        <mat-card class="stack-card">
+            <mat-card-content>
+                <div class="stack-header">
+                    <mat-icon class="stack-icon">bar_chart</mat-icon>
+                    <h4>Interview Stacks</h4>
+                </div>
+                <div class="stack-content">
+                    <div class="interview-pending mat-body-small">Interview Pending</div>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+
+    <!-- Skills section -->
+    <mat-card class="skills-card">
+        <mat-card-content>
+            <div class="skills-header">
+                <mat-icon class="skills-icon">code_blocks</mat-icon>
+                <h4>Skills</h4>
+            </div>
+            <div class="skills-content">
+                <div class="skills-pills">
+                    <div *ngFor="let skill of candidate.resume_rel_info?.skills" class="skill-pill">
+                        {{ skill }}
+                    </div>
+                </div>
+            </div>
+        </mat-card-content>
+    </mat-card>
+
+    <!-- Work Experience section -->
+    <mat-card class="experience-card">
+        <mat-card-content>
+            <div class="experience-header">
+                <mat-icon class="experience-icon">work_history</mat-icon>
+                <h4>Work Experience</h4>
+            </div>
+            <div class="experience-content">
+                <!-- If work_experience is an array, display all experiences -->
+                <ng-container *ngIf="getWorkExperienceArray().length > 0; else singleExperience">
+                  <div *ngFor="let exp of getWorkExperienceArray()">
+                    <p class="experience-details">
+                      <strong>Company:</strong> {{ exp.company }}<br>
+                      <strong>Position:</strong> {{ exp.position }}<br>
+                      <strong>Duration:</strong> {{ exp.duration || (exp.start_year + ' - ' + exp.end_year) }}
+                    </p>
+                    <div class="experience-responsibilities" *ngIf="getResponsibilities(exp).length">
+                      <strong>Responsibilities:</strong>
+                      <ul>
+                        <li *ngFor="let resp of getResponsibilities(exp)">{{ resp }}</li>
+                      </ul>
+                    </div>
+                  </div>
+                </ng-container>
+                <!-- If work_experience is a single object -->
+                <ng-template #singleExperience>
+                  <p class="experience-details">
+                    <strong>Company:</strong> {{ candidate.resume_rel_info?.work_experience?.company }}<br>
+                    <strong>Position:</strong> {{ candidate.resume_rel_info?.work_experience?.position }}<br>
+                    <strong>Duration:</strong> {{ candidate.resume_rel_info?.work_experience?.start_year && candidate.resume_rel_info?.work_experience?.end_year ? (candidate.resume_rel_info?.work_experience?.start_year + ' - ' + candidate.resume_rel_info?.work_experience?.end_year) : '' }}
+                  </p>
+                  <div class="experience-responsibilities" *ngIf="getResponsibilities(candidate.resume_rel_info?.work_experience).length">
+                    <strong>Responsibilities:</strong>
+                    <ul>
+                      <li *ngFor="let resp of getResponsibilities(candidate.resume_rel_info?.work_experience)">{{ resp }}</li>
+                    </ul>
+                  </div>
+                </ng-template>
+                <div class="projects-section">
+                    <div class="projects-header">
+                        <mat-icon matChipAvatar class="projects-icon">file_copy</mat-icon>
+                        <h4>Projects</h4>
+                    </div>
+                    <ul class="projects-list">
+                        <li class="project-item" *ngFor="let pname of candidate.resume_rel_info?.project_names; let i = index">
+                            <strong>{{ pname }}</strong>
+                            <p *ngIf="candidate.resume_rel_info?.project_tools?.[i]">Tools: {{ candidate.resume_rel_info?.project_tools?.[i] }}</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</div>

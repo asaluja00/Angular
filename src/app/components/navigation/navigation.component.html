@@ -1,0 +1,96 @@
+@if ( isPageLoading ) {
+	<!-- <mat-progress-bar class="page-progressbar" mode="indeterminate"></mat-progress-bar> -->
+}
+<mat-sidenav-container class="sidenav-container">
+	<mat-sidenav #drawer class="sidenav sidenav-overlay" fixedInViewport [style.width]="(isHandset()) ? sidenavWidthMobile : sidenavWidthDesktop()"
+		[attr.role]="(isHandset()) ? 'dialog' : 'navigation'" [mode]="(isHandset()) ? 'over' : 'side'"
+		[opened]="(isHandset()) === false" (openedChange)="isHandset() ? isMobileDrawerOpen.set($event) : null">
+		<!-- <mat-toolbar class="sidenav-header">
+			@if (isHandset() || sidenavWidthDesktop() === sidenavWidthEnum.FULL) {
+					<img src="/assets/images/techm_logo_white.png.webp" width="100" alt="" class="sidenav-logo">
+			}
+		</mat-toolbar>			 -->
+		<mat-toolbar class="sidenav-header">
+			@if (isHandset() || sidenavWidthDesktop() === sidenavWidthEnum.FULL) {
+			<img src="assets/images/new-logo.png" style="background-color: transparent;" alt="logo"
+				width="215">
+			}
+			@else {
+			<img src="/assets/images/NeoHire5.png" style="background-color: transparent;" alt="logo" width="50">
+			}
+			</mat-toolbar>
+		<app-navigation-list [navListItems]="navListItems" [isHandset]="isHandset()" [sidenavWidthDesktop]="sidenavWidthDesktop()"></app-navigation-list>
+	</mat-sidenav>
+	<mat-sidenav-content [style.marginLeft]="isHandset() ? null : sidenavWidthDesktop()">
+		<mat-toolbar class="main-toolbar main-toolbar-overlay">
+			@if (isHandset()) {
+				<!-- <button type="button" class="" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle(); isMobileDrawerOpen.set(!isMobileDrawerOpen())">
+					<mat-icon aria-label="Side nav toggle icon">{{ isMobileDrawerOpen() ? 'menu_open' : 'menu' }}</mat-icon>
+				</button> -->
+<button type="button" class="" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle(); isMobileDrawerOpen.set(!isMobileDrawerOpen())">
+	<mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+</button>
+				<!-- <img src="/assets/images/logo.png" width="215" alt=""> -->
+			} 
+@else {
+	<button type="button" class="" aria-label="Toggle sidenav" mat-icon-button (click)="toggleMiniVariant()">
+		<mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+	</button>
+
+	
+}
+
+			<div class="toolbar-container">		
+				<!-- <button mat-icon-button class="theme-menu-button" [cdkMenuTriggerFor]="themeMenu">
+					<mat-icon>palette</mat-icon>
+				</button> -->
+				<ng-template #themeMenu>
+					<div class="theme-menu mat-elevation-z1" cdkMenu>
+						<div cdkMenuGroup>
+							@for (theme of themes; track theme.label) {
+								<button
+									mat-flat-button
+									cdkMenuItemRadio
+									class="theme-menu-item"
+									[cdkMenuItemChecked]="theme.value === selectedTheme()"
+									(cdkMenuItemTriggered)="themeChange(theme.value)"
+									[style.background]="theme.colorCode"
+									[style.color]="theme.colorCode"
+								>
+								</button>
+							}
+						</div>
+					</div>
+				</ng-template>
+
+				<button mat-flat-button class="profile-menu-button" [cdkMenuTriggerFor]="profileMenu">
+					{{	userInitials$ | async}}
+				</button>
+				<!-- <button (click)="onClick()">Click</button> -->
+				<!-- <mat-icon>account_circle</mat-icon> -->
+				<ng-template #profileMenu>
+					<div class="profile-menu mat-elevation-z1" cdkMenu>
+						<div class="profile-info">
+							<div class="mat-title-medium">{{userDisplayName$ | async}}</div>
+							<div class="mat-body-small">{{emplId}}</div>
+						</div>
+						<mat-divider class="divider"></mat-divider>
+						<div class="profile-actions">
+							@for (profileMenuOption of profileMenuOptions; track profileMenuOption.label) {
+								<button class="profile-menu-item" cdkMenuItem (click)="profileMenuOption.onClick()">
+									<!-- <mat-icon>{{ profileMenuOption.icon }}</mat-icon> -->
+									{{ profileMenuOption.label }}
+								</button>
+							}
+						</div>
+					</div>
+				</ng-template>
+
+			</div>
+		</mat-toolbar>
+		<div class="main-content">
+			<router-outlet />
+		</div>
+		<div class="footer mat-label-large">&copy; 2025 Tech Mahindra Limited</div>
+	</mat-sidenav-content>
+</mat-sidenav-container>

@@ -1,0 +1,27 @@
+.dialog-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 150px; /* Adjust height as needed */
+  width: 100%;
+  overflow: hidden; /* Prevent scrolling */
+}
+
+h2 {
+  margin-top: 0;
+  color: #333;
+}
+
+p {
+  color: #555;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+[mat-dialog-actions] {
+  padding: 16px 0 0;
+  margin-top: auto; /* Push to bottom */
+}
+
+[mat-dialog-content] {
+  overflow: hidden !important;
+}

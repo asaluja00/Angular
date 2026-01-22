@@ -1,0 +1,30 @@
+<app-breadcrumbs [fragments]="breadcrumbs"></app-breadcrumbs>
+
+<div class="main mat-elevation-z1">
+    <div class="main-header">
+        <div class="mat-title-large">Requirements</div>
+        <div>
+            <button mat-flat-button routerLink="new-requirement" (click)="onAddNewRequirement()">
+                <mat-icon>add</mat-icon>
+                <span class="mat-body-small">Add new</span>
+            </button>
+        </div>
+    </div>
+   
+   
+        <mat-tab-group class="custom-tabs" mat-stretch-tabs="false" [selectedIndex]="selectedTabIndex" (selectedIndexChange)="onTabChange($event)">
+            <mat-tab label="Open Requirements">
+                <div>
+                    <app-open-close-requirements [isClosedTab]="false" (cardClicked)="onCardClicked($event)" [requirements]="dashboardData"></app-open-close-requirements>
+                </div>
+            </mat-tab>
+            <mat-tab label="Closed Requirements">
+              <div>
+                    <app-open-close-requirements [isClosedTab]="true" (cardClicked)="onCardClicked($event)" [requirements]="dashboardData"></app-open-close-requirements>
+                </div>
+            </mat-tab>
+        </mat-tab-group>
+    
+    
+    <div class="main-footer"></div>
+</div>
